@@ -17,15 +17,14 @@
 #   database-countboxes-api:
 
 services:
-  db-postgres:
-    image: postgres:alpine
-    ports:
-      - "5435:5432"
-    container_name: "db-postgres-countboxes"
-    restart: always
-    volumes:
-      - ./database-countboxes-api:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-
+    db-postgres:
+        image: postgres:alpine
+        ports:
+            - '5435:5432'
+        container_name: 'db-postgres-countboxes'
+        restart: always
+        volumes:
+            - ./database-countboxes-api:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root

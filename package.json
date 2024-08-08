@@ -1,25 +1,33 @@
 {
-  "name": "countboxes-api",
-  "version": "1.0.0",
-  "description": "<img src=\"./ModelagemEngSoft.drawio.png\">",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@prisma/client": "^5.18.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "prisma": "^5.18.0",
-    "yup": "^1.4.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.4",
-    "sucrase": "^3.35.0"
-  }
+    "name": "countboxes-api",
+    "version": "1.0.0",
+    "description": "<img src=\"./ModelagemEngSoft.drawio.png\">",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon ./src/index.js",
+        "format:check": "prettier --check .",
+        "format:write": "prettier --write .",
+        "lint:check": "eslint .",
+        "lint:fix": "eslint --fix ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@prisma/client": "^5.18.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "eslint-config-prettier": "^9.1.0",
+        "express": "^4.19.2",
+        "prettier": "^3.3.3",
+        "prisma": "^5.18.0",
+        "yup": "^1.4.0"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.8.0",
+        "eslint": "^9.8.0",
+        "globals": "^15.9.0",
+        "nodemon": "^3.1.4",
+        "sucrase": "^3.35.0"
+    }
 }

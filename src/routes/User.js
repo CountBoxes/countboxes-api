@@ -1,10 +1,8 @@
-import { create , get } from "../controllers/User";
+import { create, get } from '../controllers/User'
 
-const userRoutes = app => {
-    app.post("/user", create);
-    app.get("/user", get);
-
-    
+const userRoutes = (app) => {
+    app.post('/user', create)
+    app.get('/user', get)
 }
 
-export default userRoutes;
+export default userRoutes

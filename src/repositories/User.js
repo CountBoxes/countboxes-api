@@ -1,15 +1,15 @@
-import prisma from "../../prisma/client";
+import prisma from '../../prisma/client'
 
 export const createUser = async (data) => {
-  const user = await prisma.user.create({
-    data,
-  });
-  return user;
-};
+    const user = await prisma.user.create({
+        data,
+    })
+    return user
+}
 
 export const getAll = async () => {
-    const users = await prisma.user.findMany({});
-    return users;
+    const users = await prisma.user.findMany({})
+    return users
 }
 
 export const getUserByCPF = async (cpf) => {
@@ -17,15 +17,15 @@ export const getUserByCPF = async (cpf) => {
         where: {
             cpf: cpf,
         },
-    });
-    return user;
-};
+    })
+    return user
+}
 
 export const getByEmail = async (email) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
-  return user;
-};
+    const user = await prisma.user.findUnique({
+        where: {
+            email,
+        },
+    })
+    return user
+}

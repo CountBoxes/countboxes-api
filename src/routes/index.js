@@ -1,7 +1,7 @@
-import userRoutes from "./User";
+import userRoutes from './User'
 
-const routes = app => {
-    userRoutes(app);
+const routes = (app) => {
+    userRoutes(app)
 }
 
-export default routes;
+export default routes
