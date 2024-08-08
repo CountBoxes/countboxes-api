@@ -1,17 +1,31 @@
-version: "3"
+# version: "3"
+
+# services:
+#   db-postgres:
+#     image: postgres:alpine
+#     ports:
+#       - "5435:5432"
+#     container_name: "db-postgres-countboxes"
+#     restart: always
+#     volumes:
+#       - ./database-countboxes-api:/var/lib/postgresql/data
+#     environment:
+#       POSTGRES_USER: root
+#       POSTGRES_PASSWORD: root
+
+# volumes:
+#   database-countboxes-api:
 
 services:
   db-postgres:
     image: postgres:alpine
     ports:
       - "5435:5432"
-    container_name: "db-postgres-event"
+    container_name: "db-postgres-countboxes"
     restart: always
     volumes:
-      - ./database-event-api:/var/lib/postgresql/data
+      - ./database-countboxes-api:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
 
-volumes:
-  database-event-api:
