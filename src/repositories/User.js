@@ -8,8 +8,17 @@ export const createUser = async (data) => {
 };
 
 export const getAll = async () => {
-  const users = await prisma.user.findMany({});
-  return users;
+    const users = await prisma.user.findMany({});
+    return users;
+}
+
+export const getUserByCPF = async (cpf) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            cpf: cpf,
+        },
+    });
+    return user;
 };
 
 export const getByEmail = async (email) => {
