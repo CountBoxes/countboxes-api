@@ -1,10 +1,10 @@
-import { prisma } from "../services/prisma";
+import prisma from "../../prisma/client";
 
 export const createUser = async (data) => {
-    const user = await prisma.user.create({
-        data,
-    });
-    return user;
+  const user = await prisma.user.create({
+    data,
+  });
+  return user;
 };
 
 export const getAll = async () => {
@@ -19,4 +19,13 @@ export const getUserByCPF = async (cpf) => {
         },
     });
     return user;
+};
+
+export const getByEmail = async (email) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  return user;
 };
