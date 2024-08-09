@@ -5,11 +5,13 @@ class UserController {
         const user = await prisma.user.create({
             data,
         })
+
         return user
     }
 
     async getAll() {
         const users = await prisma.user.findMany({})
+
         return users
     }
 
@@ -19,6 +21,7 @@ class UserController {
                 cpf: cpf,
             },
         })
+
         return user
     }
 
@@ -28,6 +31,7 @@ class UserController {
                 email,
             },
         })
+
         return user
     }
 }

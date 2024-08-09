@@ -1,6 +1,5 @@
-import { createUser, getAll, getUserByCPF } from '../repositories/User'
 import { CreateUserSchema } from '../validations/User/CreateUser'
-import { CreateUserService } from '../services/User/CreateUserService'
+import CreateUserService from '../services/User/CreateUserService'
 
 class UserController {
     async create(req, res) {
