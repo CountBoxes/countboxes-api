@@ -3,7 +3,7 @@ import * as yup from 'yup'
 const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/
 const phoneRegex = /^\+?[1-9]\d{1,14}$/
 
-export const userValidation = yup.object({
+export const CreateUserSchema = yup.object({
     name: yup.string().required('Nome é obrigatório'),
     phone: yup
         .string()

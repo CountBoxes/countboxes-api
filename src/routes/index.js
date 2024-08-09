@@ -1,7 +1,8 @@
-import userRoutes from './User'
+import { Router } from 'express'
+import userRoutes from './User/User'
 
-const routes = (app) => {
-    userRoutes(app)
-}
+const routes = new Router()
+
+routes.use('/user', userRoutes)
 
 export default routes

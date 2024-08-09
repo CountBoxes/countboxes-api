@@ -1,31 +1,35 @@
 import prisma from '../../prisma/client'
 
-export const createUser = async (data) => {
-    const user = await prisma.user.create({
-        data,
-    })
-    return user
+class UserController {
+    async create(data) {
+        const user = await prisma.user.create({
+            data,
+        })
+        return user
+    }
+
+    async getAll() {
+        const users = await prisma.user.findMany({})
+        return users
+    }
+
+    async getByCPF(cpf) {
+        const user = await prisma.user.findUnique({
+            where: {
+                cpf: cpf,
+            },
+        })
+        return user
+    }
+
+    async getByEmail(email) {
+        const user = await prisma.user.findUnique({
+            where: {
+                email,
+            },
+        })
+        return user
+    }
 }
 
-export const getAll = async () => {
-    const users = await prisma.user.findMany({})
-    return users
-}
-
-export const getUserByCPF = async (cpf) => {
-    const user = await prisma.user.findUnique({
-        where: {
-            cpf: cpf,
-        },
-    })
-    return user
-}
-
-export const getByEmail = async (email) => {
-    const user = await prisma.user.findUnique({
-        where: {
-            email,
-        },
-    })
-    return user
-}
+export default new UserController()

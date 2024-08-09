@@ -1,27 +1,19 @@
 import { createUser, getAll, getUserByCPF } from '../repositories/User'
-import { userValidation } from '../validations/User'
+import { CreateUserSchema } from '../validations/User/CreateUser'
+import { CreateUserService } from '../services/User/CreateUserService'
 
-export const create = async (req, res) => {
-    try {
-        await userValidation.validate(req.body)
+class UserController {
+    async create(req, res) {
+        try {
+            const data = await CreateUserSchema.validate(req.body)
 
-        const existingUser = await getUserByCPF(req.body.cpf)
-        if (existingUser) {
-            return res.status(409).send({ message: 'CPF já está em uso.' })
+            const user = await CreateUserService.execute(data)
+
+            return res.status(200).send(user)
+        } catch (error) {
+            return res.status(400).json({ error: error.message })
         }
-
-        const user = await createUser(req.body)
-        res.status(200).send(user)
-    } catch (err) {
-        res.status(400).send(err)
     }
 }
 
-export const get = async (req, res) => {
-    try {
-        const users = await getAll()
-        res.status(200).send(users)
-    } catch (err) {
-        res.status(400).send(err)
-    }
-}
+export default new UserController()
