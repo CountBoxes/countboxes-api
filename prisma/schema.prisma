@@ -8,16 +8,30 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  cpf       String   @unique
-  phone     String
-  type      String
-  status    String
-  password  String
+  id       Int    @id @default(autoincrement())
+  name     String
+  cpf      String @unique
+  phone    String
+  type     String
+  status   String
+  password String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("users")
+}
+
+model Product {
+  id          Int    @id @default(autoincrement())
+  description String
+  cuttingType String
+  grammage    Float
+  grossWeight Float
+  netWeight   Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("products")
 }
