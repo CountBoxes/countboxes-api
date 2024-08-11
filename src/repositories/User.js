@@ -1,4 +1,4 @@
-import prisma from '../../prisma/client'
+import { prisma } from '../../prisma/client'
 
 class UserController {
     async create(data) {
@@ -22,18 +22,10 @@ class UserController {
             },
         })
 
-        return user
+
+        return user !== null
     }
 
-    async getByEmail(email) {
-        const user = await prisma.user.findUnique({
-            where: {
-                email,
-            },
-        })
-
-        return user
-    }
 }
 
 export default new UserController()
