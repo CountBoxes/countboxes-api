@@ -5,4 +5,6 @@ const userRoutes = new Router()
 
 userRoutes.post('/', UserController.create)
 
+userRoutes.get('/', UserController.getAll)
+
 export default userRoutes

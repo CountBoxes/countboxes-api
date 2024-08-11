@@ -1,6 +1,6 @@
 import * as yup from 'yup'
+import validateCPF from '../../utils/validateCPF';
 
-const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/
 const phoneRegex = /^\+?[1-9]\d{1,14}$/
 
 export const CreateUserSchema = yup.object({
@@ -11,8 +11,8 @@ export const CreateUserSchema = yup.object({
         .optional(),
     cpf: yup
         .string()
-        .matches(cpfRegex, 'CPF inválido')
-        .required('CPF é obrigatório'),
+        .required('CPF é obrigatório')
+        .test('validate-cpf', 'CPF inválido', value => validateCPF(value)),
     password: yup
         .string()
         .min(6, 'Senha deve ter pelo menos 6 caracteres')
