@@ -29,6 +29,7 @@ model Product {
   grammage      Float
   grossWeight   Float
   netWeight     Float
+  productCode   Int    @unique
 
   cuttingType CuttingType @relation(fields: [cuttingTypeId], references: [id])
 

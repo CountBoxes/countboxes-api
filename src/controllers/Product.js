@@ -1,12 +1,22 @@
+import Product from "../repositories/Product";
+import CreateProductService from "../services/Product/CreateProductService";
+import { CreateProductSchema } from '../validations/Product/CreateProduct'
 
-export const create = async (req, res) => {
-    try {
-        const data = await productValidation.validate(req.body);
 
-        const user = CreateUserService.execute(data);
 
-        res.status(201).send(user);
-    } catch (err) {
-        res.status(400).send(err);
+class ProductController {
+    async create(req, res) {
+
+        try {
+            const data = await CreateProductSchema.validate(req.body)
+
+            const product = await CreateProductService.execute(data)
+
+            return res.status(201).send(product)
+        } catch (error) {
+            return res.status(400).json({ error: error.message })
+        }
     }
+
 }
+export default new ProductController();

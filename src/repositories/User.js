@@ -1,6 +1,6 @@
 import { prisma } from '../../prisma/client'
 
-class UserController {
+class UserRepository {
     async create(data) {
         const user = await prisma.user.create({
             data,
@@ -45,9 +45,9 @@ class UserController {
                 status: data.status,
                 password: data.password
             }
-          })
-          return updateUser;
+        })
+        return updateUser;
     }
 }
 
-export default new UserController()
+export default new UserRepository()
