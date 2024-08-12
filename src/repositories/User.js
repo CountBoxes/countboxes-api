@@ -21,11 +21,33 @@ class UserController {
                 cpf: cpf,
             },
         })
-
-
         return user !== null
     }
 
+    async getById(id) {
+        const userId = Number(id);
+        if (isNaN(userId)) {
+            throw new Error('O ID deve ser um número.');
+        }
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+        })
+        return user
+    }
+
+    async update(id, data) {
+        const updateUser = await prisma.user.update({
+            where: { id: Number(id) },
+            data: {
+                name: data.name,
+                phone: data.phone,
+                type: data.type,
+                status: data.status,
+                password: data.password
+            }
+          })
+          return updateUser;
+    }
 }
 
 export default new UserController()
