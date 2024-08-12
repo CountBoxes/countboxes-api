@@ -1,0 +1,180 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Documentação CountBoxes API",
+      "description": "Aqui você encontrará todas as APIs referente ao projeto CountBoxes.",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Local server"
+      }
+    ],
+    "paths": {
+      "/user": {
+        "get": {
+          "tags": [
+            "/user"
+          ],
+          "summary": "Lista todos os usuários",
+          "description": "Optional extended description in Markdown.",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {  
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "John Doe"
+                        },
+                        "cpf": {
+                          "type": "string",
+                          "example": "02380747067"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "48984531128"
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "1"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "A"
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "1234567"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2024-08-08T19:04:53.241Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2024-08-08T19:04:53.241Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+            "tags": [
+              "/user"
+            ],
+            "summary": "Cria um novo usuário",
+            "description": "Cria um novo usuário no sistema.",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                      },
+                      "cpf": {
+                        "type": "string",
+                        "example": "45854212030"
+                      },
+                      "phone": {
+                        "type": "string",
+                        "example": "79972471555"
+                      },
+                      "type": {
+                        "type": "string",
+                        "example": "1"
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "A"
+                      },
+                      "password": {
+                        "type": "string",
+                        "example": "1234556"
+                      }
+                    },
+                    "required": ["name", "cpf", "phone", "password"]
+                  }
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "Usuário criado com sucesso",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "John Doe"
+                        },
+                        "cpf": {
+                          "type": "string",
+                          "example": "45854212030"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "79972471555"
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "1"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "A"
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "1234556"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2024-08-12T03:01:45.901Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2024-08-12T03:01:45.901Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+        }
+      }
+    }
+}
+  
