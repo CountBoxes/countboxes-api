@@ -20,6 +20,12 @@ class ProductRepository {
         return product
     }
 
+    async getAll() {
+        const products = await prisma.product.findMany({})
+
+        return products
+    }
+
 }
 
 export default new ProductRepository()
