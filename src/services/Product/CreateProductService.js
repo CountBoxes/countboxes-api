@@ -1,13 +1,18 @@
 import ProductRepository from '../../repositories/Product'
 
-class CreateUserService {
+class CreateProductService {
     async execute(data) {
 
-        console.log("blabla")
+        const productCodeAlreadyExists = await ProductRepository.getByProductCode(data)
+
+        if (productCodeAlreadyExists) {
+            throw new Error('O produto já existe')
+        }
+
         const product = await ProductRepository.create(data)
 
         return product
     }
 }
 
-export default new CreateUserService()
+export default new CreateProductService()

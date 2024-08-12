@@ -9,7 +9,7 @@ class ProductController {
 
         try {
             const data = await CreateProductSchema.validate(req.body)
-            console.log("blabla")
+
             const product = await CreateProductService.execute(data)
 
             return res.status(201).send(product)

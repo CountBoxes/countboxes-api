@@ -6,9 +6,8 @@ export const CreateProductSchema = yup.object({
             .optional(),
 
     cuttingType:
-        yup.string()
-            .transform(value => value.toLowerCase())
-            .oneOf(['lisa', 'ondulada'], 'Tipo de Corte inválido'),
+        yup.string(),
+
     grammage:
         yup.number()
             .required('Gramatura é obrigatória'),
@@ -20,4 +19,8 @@ export const CreateProductSchema = yup.object({
     netWeight:
         yup.number()
             .required('Peso Líquido é obrigatório'),
+
+    productCode:
+        yup.number()
+            .required('Código do Produto é obrigatório'),
 })
