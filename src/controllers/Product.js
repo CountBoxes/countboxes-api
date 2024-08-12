@@ -1,5 +1,6 @@
 import Product from "../repositories/Product";
 import CreateProductService from "../services/Product/CreateProductService";
+import FindProductsService from "../services/Product/FindProductsService";
 import { CreateProductSchema } from '../validations/Product/CreateProduct'
 
 
@@ -16,6 +17,12 @@ class ProductController {
         } catch (error) {
             return res.status(400).json({ error: error.message })
         }
+    }
+
+    async getAll(req, res) {
+        const products = await FindProductsService.execute()
+
+        return res.status(200).send(products)
     }
 
 }

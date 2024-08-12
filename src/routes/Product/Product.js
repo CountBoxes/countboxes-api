@@ -5,7 +5,7 @@ const productRoutes = new Router()
 
 productRoutes.post('/', ProductController.create)
 
-// productRoutes.get('/', ProductController.getAll)
+productRoutes.get('/', ProductController.getAll)
 
 // userRoutes.put('/:id', UserController.update)
 
