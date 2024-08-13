@@ -6,7 +6,8 @@ export const CreateProductSchema = yup.object({
             .optional(),
 
     cuttingType:
-        yup.string(),
+        yup.number()
+            .required('Tipo de corte é obrigatório'),
 
     grammage:
         yup.number()

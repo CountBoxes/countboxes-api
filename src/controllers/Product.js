@@ -1,15 +1,11 @@
-import Product from "../repositories/Product";
 import CreateProductService from "../services/Product/CreateProductService";
-import UpdateProductService from "../services/Product/CreateProductService";
+import UpdateProductService from "../services/Product/UpdateProductService";
 import FindProductsService from "../services/Product/FindProductsService";
 import { CreateProductSchema } from '../validations/Product/CreateProduct'
 import { UpdateProductSchema } from "../validations/Product/UpdateProduct";
 
-
-
 class ProductController {
     async create(req, res) {
-
         try {
             const data = await CreateProductSchema.validate(req.body)
 

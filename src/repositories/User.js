@@ -25,12 +25,8 @@ class UserRepository {
     }
 
     async getById(id) {
-        const userId = Number(id);
-        if (isNaN(userId)) {
-            throw new Error('O ID deve ser um número.');
-        }
         const user = await prisma.user.findUnique({
-            where: { id: userId },
+            where: { id: parseInt(id) },
         })
         return user
     }

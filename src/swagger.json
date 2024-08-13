@@ -12,10 +12,10 @@
     }
   ],
   "paths": {
-    "/user": {
+    "/users": {
       "get": {
         "tags": [
-          "/user"
+          "/users"
         ],
         "summary": "Lista todos os usuários",
         "description": "Obtém uma lista de todos os usuários.",
@@ -80,7 +80,7 @@
       },
       "post": {
         "tags": [
-          "/user"
+          "/users"
         ],
         "summary": "Cria um novo usuário",
         "description": "Cria um novo usuário no sistema.",
@@ -191,10 +191,10 @@
         }
       }
     },
-    "/user/{id}": {
+    "/users/{id}": {
       "put": {
         "tags": [
-          "/user"
+          "/users"
         ],
         "summary": "Atualiza um usuário existente",
         "description": "Atualiza um usuário com base no ID fornecido.",

@@ -1,12 +1,12 @@
 import ProductRepository from '../../repositories/Product'
 
 class CreateProductService {
-    async execute(id, data) {
+    async execute(data) {
 
-        const productCodeAlreadyExists = await ProductRepository.getById(id)
+        const productCodeAlreadyExists = await ProductRepository.getByProductCode(data.productCode)
 
         if (productCodeAlreadyExists) {
-            throw new Error('O produto já existe')
+            throw new Error('O codigo do produto já está cadastrado.')
         }
 
         const product = await ProductRepository.create(data)
