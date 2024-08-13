@@ -1,9 +1,9 @@
 import ProductRepository from '../../repositories/Product'
 
 class CreateProductService {
-    async execute(data) {
+    async execute(id, data) {
 
-        const productCodeAlreadyExists = await ProductRepository.getByProductCode(data)
+        const productCodeAlreadyExists = await ProductRepository.getById(id)
 
         if (productCodeAlreadyExists) {
             throw new Error('O produto já existe')

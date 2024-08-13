@@ -9,13 +9,15 @@ class ProductRepository {
         return product
     }
 
-    async getByProductCode(data) {
-        const productCode = data.productCode;
-        if (isNaN(productCode)) {
-            throw new Error('O Código do produto deve ser um número.');
+    async getById(id) {
+
+        const productId = Number(id)
+
+        if (isNaN(productId)) {
+            throw new Error('O Id do produto deve ser um número.');
         }
         const product = await prisma.product.findUnique({
-            where: { productCode: productCode },
+            where: { id: productId },
         })
         return product
     }
@@ -24,6 +26,21 @@ class ProductRepository {
         const products = await prisma.product.findMany({})
 
         return products
+    }
+
+    async update(id, data) {
+        const updatedProduct = await prisma.product.update({
+            where: { id: id },
+            data: {
+                description: data.description,
+                cuttingTypeId: data.cuttingTypeId,
+                grammage: data.grammage,
+                grossWeight: data.grossWeight,
+                netWeight: data.netWeight,
+                productCode: data.productCode,
+            }
+        })
+        return updatedProduct;
     }
 
 }

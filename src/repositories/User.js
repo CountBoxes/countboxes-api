@@ -36,7 +36,7 @@ class UserRepository {
     }
 
     async update(id, data) {
-        const updateUser = await prisma.user.update({
+        const updatedUser = await prisma.user.update({
             where: { id: Number(id) },
             data: {
                 name: data.name,
@@ -46,7 +46,7 @@ class UserRepository {
                 password: data.password
             }
         })
-        return updateUser;
+        return updatedUser;
     }
 }
 
