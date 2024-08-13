@@ -30,7 +30,7 @@ class UserController {
             const user = await UpdateUserService.execute(id, data)
 
             return res.status(200).send(user)
-        } catch(error) {
+        } catch (error) {
             return res.status(400).json({ error: error.message })
 
         }

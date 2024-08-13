@@ -4,8 +4,8 @@ import productRoutes from './Product/Product'
 
 const routes = new Router()
 
-routes.use('/user', userRoutes)
+routes.use('/users', userRoutes)
 
-routes.use('/product', productRoutes)
+routes.use('/products', productRoutes)
 
 export default routes

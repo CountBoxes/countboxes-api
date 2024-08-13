@@ -25,18 +25,14 @@ class UserRepository {
     }
 
     async getById(id) {
-        const userId = Number(id);
-        if (isNaN(userId)) {
-            throw new Error('O ID deve ser um número.');
-        }
         const user = await prisma.user.findUnique({
-            where: { id: userId },
+            where: { id: parseInt(id) },
         })
         return user
     }
 
     async update(id, data) {
-        const updateUser = await prisma.user.update({
+        const updatedUser = await prisma.user.update({
             where: { id: Number(id) },
             data: {
                 name: data.name,
@@ -46,7 +42,7 @@ class UserRepository {
                 password: data.password
             }
         })
-        return updateUser;
+        return updatedUser;
     }
 }
 

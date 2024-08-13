@@ -7,6 +7,6 @@ productRoutes.post('/', ProductController.create)
 
 productRoutes.get('/', ProductController.getAll)
 
-// userRoutes.put('/:id', UserController.update)
+productRoutes.put('/:id', ProductController.update)
 
 export default productRoutes
