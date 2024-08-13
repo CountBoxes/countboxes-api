@@ -290,6 +290,294 @@
           }
         }
       }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "/products"
+        ],
+        "summary": "Lista todos os produtos",
+        "description": "Obtém uma lista de todos os produtos.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de produtos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": "1"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "Batata Lisa Sabor Churrasco 45g CX/10"
+                        },
+                        "cuttingTypeId": {
+                          "type": "number",
+                          "example": "1"
+                        },
+                        "grammage": {
+                          "type": "number",
+                          "example": "0.045"
+                        },
+                        "grossWeight": {
+                          "type": "number",
+                          "example": "0.45"
+                        },
+                        "netWeight": {
+                          "type": "number",
+                          "example": "0.45"
+                        },
+                        "productCode": {
+                          "type": "number",
+                          "example": "100"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2024-08-13T01:37:10.546Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2024-08-13T01:37:10.546Z"
+                        }
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "/products"
+        ],
+        "summary": "Cria um novo produto",
+        "description": "Cria um novo produto no sistema.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "example": "Batata Lisa Sabor Requeijão 45g CX/10"
+                  },
+                  "cuttingType": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "grammage": {
+                    "type": "number",
+                    "example": "0.045"
+                  },
+                  "grossWeight": {
+                    "type": "number",
+                    "example": "0.45"
+                  },
+                  "netWeight": {
+                    "type": "number",
+                    "example": "0.45"
+                  },
+                  "productCode": {
+                    "type": "number",
+                    "example": "115"
+                  }
+                },
+                "required": ["cuttingTypeId", "grammage", "grossWeight", "netWeight","productCode"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Produto criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": "7"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Batata Lisa Sabor Requeijão 45g CX/10"
+                    },
+                    "cuttingTypeId": {
+                      "type": "number",
+                      "example": "1"
+                    },
+                    "grammage": {
+                      "type": "number",
+                      "example": "0.045"
+                    },
+                    "grossWeight": {
+                      "type": "number",
+                      "example": "0.45"
+                    },
+                    "netWeight": {
+                      "type": "number",
+                      "example": "0.45"
+                    },
+                    "productCode": {
+                      "type": "number",
+                      "example": "115"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-13T02:26:52.144Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-13T02:26:52.144Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitação inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Dados inválidos fornecidos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "put": {
+        "tags": [
+          "/products"
+        ],
+        "summary": "Atualiza um produto existente",
+        "description": "Atualiza um produto com base no ID fornecido.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "ID do produto a ser atualizado"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "example": "Batata Lisa Sabor Requeijão 45g CX/10"
+                  },
+                  "cuttingType": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "grammage": {
+                    "type": "number",
+                    "example": "0.045"
+                  },
+                  "grossWeight": {
+                    "type": "number",
+                    "example": "0.45"
+                  },
+                  "netWeight": {
+                    "type": "number",
+                    "example": "0.45"
+                  },
+                  "productCode": {
+                    "type": "number",
+                    "example": "115"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Produto atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": "7"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Batata Lisa Sabor Requeijão 60g CX/10"
+                    },
+                    "cuttingTypeId": {
+                      "type": "number",
+                      "example": "1"
+                    },
+                    "grammage": {
+                      "type": "number",
+                      "example": "0.06"
+                    },
+                    "grossWeight": {
+                      "type": "number",
+                      "example": "0.6"
+                    },
+                    "netWeight": {
+                      "type": "number",
+                      "example": "0.6"
+                    },
+                    "productCode": {
+                      "type": "number",
+                      "example": "115"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-13T02:26:52.144Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-13T03:00:09.096Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
