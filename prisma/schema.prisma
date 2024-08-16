@@ -11,7 +11,7 @@ model User {
   userCode Int @id @default(autoincrement())
 
   name            String
-  cpf             String  @unique
+  cpf             String 
   phone           String
   type            String
   active          Boolean
