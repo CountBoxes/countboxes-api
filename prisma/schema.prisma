@@ -8,39 +8,150 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  cpf      String @unique
-  phone    String
-  type     String
-  status   String
-  password String
+  userCode Int @id @default(autoincrement())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  name            String
+  cpf             String 
+  phone           String
+  type            String
+  active          Boolean
+  email           String  @unique
+  password        String
+  confirmPassword String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Loading   Loading[]
+  Load      Load[]
 
   @@map("users")
 }
 
 model Product {
-  id            Int    @id @default(autoincrement())
-  description   String
-  cuttingTypeId Int
-  grammage      Float
-  grossWeight   Float
-  netWeight     Float
-  productCode   Int    @unique
+  productCode Int @id @unique
 
-  cuttingType CuttingType @relation(fields: [cuttingTypeId], references: [id])
+  description String
+  grossWeight Float // Peso bruto
+  netWeight   Float // Peso líquido
+  unit        String // Unidade de medida
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  OrderProduct OrderProduct[]
 
   @@map("products")
 }
 
-model CuttingType {
-  id       Int       @id @default(autoincrement())
-  type     String
-  products Product[] // Establishes the one-to-many relationship with Product
+model Order {
+  orderCode Int @id @default(autoincrement())
+
+  shipping Float
+  adress   String
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Loading      Loading[]
+  OrderProduct OrderProduct[]
+  Load         Load[]
+
+  clientCode Int
+  client     Client @relation(fields: [clientCode], references: [clientCode])
+}
+
+model OrderProduct {
+  orderProductCode Int @id @default(autoincrement())
+
+  quantity Int
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Loading   Loading[]
+
+  productCode Int
+  product     Product @relation(fields: [productCode], references: [productCode])
+
+  orderCode Int
+  order     Order @relation(fields: [orderCode], references: [orderCode])
+}
+
+model Loading {
+  // ULTIMO
+  loadingCode Int @id @default(autoincrement())
+
+  quantityLoaded Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userCode Int
+  user     User @relation(fields: [userCode], references: [userCode])
+
+  orderProductCode Int
+  orderProduct     OrderProduct @relation(fields: [orderProductCode], references: [orderProductCode])
+
+  orderCode Int
+  order     Order @relation(fields: [orderCode], references: [orderCode])
+}
+
+model Client {
+  clientCode Int @id @default(autoincrement())
+
+  name  String
+  CNPJ  String @unique
+  phone String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order[]
+
+  adressCode Int
+  adress     Adress @relation(fields: [adressCode], references: [adressCode])
+}
+
+model Adress {
+  adressCode Int @id @default(autoincrement())
+
+  country String
+  region  String
+  state   String
+  city    String
+  street  String
+  number  String
+  zipCode String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Client    Client[]
+}
+
+model Load {
+  loadCode Int @id @default(autoincrement())
+
+  status String
+  loaded Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orderCode Int
+  order     Order @relation(fields: [orderCode], references: [orderCode])
+
+  vehicleCode Int
+  vehicle     Vehicle @relation(fields: [vehicleCode], references: [vehicleCode])
+
+  userCode Int
+  user     User @relation(fields: [userCode], references: [userCode])
+}
+
+model Vehicle {
+  vehicleCode Int @id @default(autoincrement())
+
+  plate  String
+  model  String
+  type   String
+  active Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Load      Load[]
 }

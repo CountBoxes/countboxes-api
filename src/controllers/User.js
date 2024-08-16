@@ -2,7 +2,7 @@ import { CreateUserSchema } from '../validations/User/CreateUser'
 import CreateUserService from '../services/User/CreateUserService'
 import FindUsersService from '../services/User/FindUsersService'
 import UpdateUserService from '../services/User/UpdateUserService'
-
+import { UpdateUserSchema } from '../validations/User/UpdateUser'
 class UserController {
     async create(req, res) {
         try {
@@ -25,7 +25,7 @@ class UserController {
     async update(req, res) {
         try {
             const { id } = req.params;
-            const data = req.body
+            const data = await UpdateUserSchema.validate(req.body)
 
             const user = await UpdateUserService.execute(id, data)
 

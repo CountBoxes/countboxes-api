@@ -15,10 +15,10 @@ class UserRepository {
         return users
     }
 
-    async getByCPF(cpf) {
+    async getByEmail(email) {
         const user = await prisma.user.findUnique({
             where: {
-                cpf: cpf,
+                email: email,
             },
         })
         return user !== null
@@ -26,20 +26,21 @@ class UserRepository {
 
     async getById(id) {
         const user = await prisma.user.findUnique({
-            where: { id: parseInt(id) },
+            where: { userCode: parseInt(id) },
         })
         return user
     }
 
     async update(id, data) {
         const updatedUser = await prisma.user.update({
-            where: { id: Number(id) },
+            where: { userCode: Number(id) },
             data: {
                 name: data.name,
                 phone: data.phone,
                 type: data.type,
-                status: data.status,
-                password: data.password
+                active: data.active,
+                password: data.password,
+                email: data.email
             }
         })
         return updatedUser;

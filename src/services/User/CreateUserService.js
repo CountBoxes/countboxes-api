@@ -3,10 +3,10 @@ import UserRepository from '../../repositories/User'
 class CreateUserService {
     async execute(data) {
 
-        const cpfAlreadyExists = await UserRepository.getByCPF(data.cpf)
+        const emailAlreadyExists = await UserRepository.getByEmail(data.email);
 
-        if (cpfAlreadyExists) {
-            throw new Error('CPF already exists')
+        if (emailAlreadyExists) {
+            throw new Error('Esse email já esta cadastrado.')
         }
 
         const user = await UserRepository.create(data)

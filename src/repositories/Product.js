@@ -29,7 +29,6 @@ class ProductRepository {
     }
 
     async update(id, data) {
-        // Primeiro, buscar o produto existente pelo ID
         const existingProduct = await prisma.product.findUnique({
             where: { id: parseInt(id) }
         });
@@ -38,7 +37,6 @@ class ProductRepository {
             throw new Error('Produto não encontrado.');
         }
     
-        // Criar o objeto de dados de atualização
         const productData = {
             description: data.description,
             cuttingType: data.cuttingTypeId ? { connect: { id: data.cuttingTypeId } } : undefined,
@@ -47,12 +45,10 @@ class ProductRepository {
             netWeight: data.netWeight,
         };
     
-        // Apenas incluir o productCode no objeto de atualização se ele for diferente do existente
         if (data.productCode !== existingProduct.productCode) {
             productData.productCode = data.productCode;
         }
     
-        // Realizar a atualização
         const updatedProduct = await prisma.product.update({
             where: { id: parseInt(id) },
             data: productData,
