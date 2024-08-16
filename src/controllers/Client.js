@@ -1,5 +1,6 @@
 import CreateClientService from '../services/Client/CreateClientService';
 import { CreateClientSchema } from '../validations/Client/CreateClient';
+import FindClientsService from '../services/Client/FindClientsService';
 
 
 class ClientController {
@@ -14,6 +15,13 @@ class ClientController {
             return res.status(400).json({ error: error.message })
         }
     }
+
+    async get(req, res) {
+        const clients = await FindClientsService.execute()
+
+        return res.status(200).send(clients)
+    }
+
 
 }
 export default new ClientController();
