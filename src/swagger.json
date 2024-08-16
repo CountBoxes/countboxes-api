@@ -107,16 +107,24 @@
                     "type": "string",
                     "example": "1"
                   },
-                  "status": {
+                  "active": { 
+                    "type": "boolean", 
+                    "example": true 
+                  },
+                  "email": {
                     "type": "string",
-                    "example": "A"
+                    "example": "johndoe@example.com"
                   },
                   "password": {
                     "type": "string",
                     "example": "1234556"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "1234556"
                   }
                 },
-                "required": ["name", "cpf", "phone", "password"]
+                "required": ["name", "cpf", "phone", "type", "email", "password", "confirmPassword"]
               }
             }
           }
@@ -129,9 +137,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": {
+                    "userCode": {
                       "type": "number",
-                      "example": 4
+                      "example": "3"
                     },
                     "name": {
                       "type": "string",
@@ -149,23 +157,30 @@
                       "type": "string",
                       "example": "1"
                     },
-                    "status": {
+                    "active": {
+                      "type": "boolean"
+                    },
+                    "email": {
                       "type": "string",
-                      "example": "A"
+                      "example": "johndoe1@example.com"
                     },
                     "password": {
+                      "type": "string",
+                      "example": "1234556"
+                    },
+                    "confirmPassword": {
                       "type": "string",
                       "example": "1234556"
                     },
                     "createdAt": {
                       "type": "string",
                       "format": "date-time",
-                      "example": "2024-08-12T03:01:45.901Z"
+                      "example": "2024-08-16T16:54:48.751Z"
                     },
                     "updatedAt": {
                       "type": "string",
                       "format": "date-time",
-                      "example": "2024-08-12T03:01:45.901Z"
+                      "example": "2024-08-16T16:54:48.751Z"
                     }
                   }
                 }
@@ -229,11 +244,19 @@
                     "type": "string",
                     "example": "4"
                   },
-                  "status": {
+                  "active": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "email": {
                     "type": "string",
-                    "example": "I"
+                    "example": "johndoe@example.com"
                   },
                   "password": {
+                    "type": "string",
+                    "example": "1234556"
+                  },
+                  "confirmPassword": {
                     "type": "string",
                     "example": "1234556"
                   }
