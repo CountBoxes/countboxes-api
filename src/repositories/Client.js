@@ -7,6 +7,12 @@ class ClientRepository {
         });
         return client
     }
+
+    async get() {
+        const clients = await prisma.client.findMany({})
+
+        return clients
+    }
 }
 
 export default new ClientRepository()
