@@ -13,6 +13,17 @@ class ClientRepository {
 
         return clients
     }
+
+    async getByCNPJ(CNPJ) {
+        const client = await prisma.client.findUnique({
+            where: {
+                CNPJ: CNPJ,
+            },
+        })
+        return client !== null
+    }
 }
+
+
 
 export default new ClientRepository()

@@ -1,14 +1,15 @@
 import * as yup from 'yup'
+import validateCNPJ from '../../utils/validateCNPJ'
 
 export const CreateClientSchema = yup.object({
     name: yup
         .string()
         .required(),
 
-    CNPJ: yup
+        CNPJ: yup
         .string()
-        .required()
-        .matches(/^[0-9]{14}$/),
+        .required('CNPJ é obrigatório')
+        .test('validate-cnpj', 'CNPJ inválido', value => validateCNPJ(value)),
 
     phone: yup
         .string()
