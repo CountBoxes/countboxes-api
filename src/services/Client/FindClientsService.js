@@ -1,12 +1,12 @@
-import ClientRepository from '../../repositories/Client'
+import ClientRepository from '../../repositories/Client';
 
 class FindClientsService {
-    async execute() {
+  async execute() {
 
-        const clients = await ClientRepository.get()
+    const clients = await ClientRepository.get();
 
-        return clients
-    }
+    return clients;
+  }
 }
 
-export default new FindClientsService()
+export default new FindClientsService();

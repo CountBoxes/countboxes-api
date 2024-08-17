@@ -1,12 +1,12 @@
-import ProductRepository from '../../repositories/Product'
+import ProductRepository from '../../repositories/Product';
 
 class FindProductsService {
-    async execute() {
+  async execute() {
 
-        const products = await ProductRepository.getAll()
+    const products = await ProductRepository.getAll();
 
-        return products
-    }
+    return products;
+  }
 }
 
-export default new FindProductsService()
+export default new FindProductsService();

@@ -4,23 +4,23 @@ import FindClientsService from '../services/Client/FindClientsService';
 
 
 class ClientController {
-    async create(req, res) {
-        try {
-            const data = await CreateClientSchema.validate(req.body)
+  async create(req, res) {
+    try {
+      const data = await CreateClientSchema.validate(req.body);
 
-            const client = await CreateClientService.execute(data)
+      const client = await CreateClientService.execute(data);
 
-            return res.status(201).send(client)
-        } catch (error) {
-            return res.status(400).json({ error: error.message })
-        }
+      return res.status(201).send(client);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
     }
+  }
 
-    async get(req, res) {
-        const clients = await FindClientsService.execute()
+  async get(req, res) {
+    const clients = await FindClientsService.execute();
 
-        return res.status(200).send(clients)
-    }
+    return res.status(200).send(clients);
+  }
 
 
 }

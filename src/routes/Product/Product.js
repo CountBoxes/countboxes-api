@@ -1,12 +1,12 @@
-import { Router } from 'express'
-import ProductController from '../../controllers/Product'
+import { Router } from 'express';
+import ProductController from '../../controllers/Product';
 
-const productRoutes = new Router()
+const productRoutes = new Router();
 
-productRoutes.post('/', ProductController.create)
+productRoutes.post('/', ProductController.create);
 
-productRoutes.get('/', ProductController.getAll)
+productRoutes.get('/', ProductController.getAll);
 
-productRoutes.put('/:id', ProductController.update)
+productRoutes.put('/:id', ProductController.update);
 
-export default productRoutes
+export default productRoutes;

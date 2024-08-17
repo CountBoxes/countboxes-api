@@ -1,12 +1,12 @@
-import UserRepository from '../../repositories/User'
+import UserRepository from '../../repositories/User';
 
 class FindUsersService {
-    async execute() {
+  async execute() {
 
-        const users = await UserRepository.getAll()
+    const users = await UserRepository.getAll();
 
-        return users
-    }
+    return users;
+  }
 }
 
-export default new FindUsersService()
+export default new FindUsersService();

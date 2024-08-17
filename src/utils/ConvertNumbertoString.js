@@ -1,3 +1,3 @@
 export const ConvertNumbertoString = (number) => {
-    return number.toString()
-}
+  return number.toString();
+};
