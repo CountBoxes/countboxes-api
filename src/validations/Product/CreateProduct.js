@@ -1,17 +1,14 @@
 import * as yup from 'yup'
 
 export const CreateProductSchema = yup.object({
+    productCode:
+        yup.number()
+            .required('Código do Produto é obrigatório'),
+
     description:
         yup.string()
             .optional(),
 
-    cuttingType:
-        yup.number()
-            .required('Tipo de corte é obrigatório'),
-
-    grammage:
-        yup.number()
-            .required('Gramatura é obrigatória'),
 
     grossWeight:
         yup.number()
@@ -21,7 +18,8 @@ export const CreateProductSchema = yup.object({
         yup.number()
             .required('Peso Líquido é obrigatório'),
 
-    productCode:
-        yup.number()
-            .required('Código do Produto é obrigatório'),
+
+    unit:
+        yup.string()
+            .required('Unidade é obrigatório'),
 })

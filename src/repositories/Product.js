@@ -2,15 +2,10 @@ import { prisma } from '../../prisma/client';
 
 class ProductRepository {
   async create(data) {
-    const productData = {
-      ...data,
-      cuttingType: {
-        connect: { id: data.cuttingType }
-      }
-    };
+
 
     const product = await prisma.product.create({
-      data: productData,
+      data
     });
     return product;
   }
