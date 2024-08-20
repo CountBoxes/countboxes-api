@@ -16,6 +16,14 @@ class VehicleRepository {
         return vehicle !== null;
     }
 
+    async getById(id) {
+        const vehicle = await prisma.vehicle.findUnique({
+            where: { vehicleCode: parseInt(id) },
+        });
+        return vehicle !== null;
+    }
+
+
     async getAll() {
         const vehicles = await prisma.vehicle.findMany({});
 
@@ -24,7 +32,7 @@ class VehicleRepository {
 
     async update(id, data) {
         const updatedVehicle = await prisma.vehicle.update({
-            where: { plate: id },
+            where: { vehicleCode: parseInt(id) },
             data: {
                 model: data.model,
                 type: data.type,

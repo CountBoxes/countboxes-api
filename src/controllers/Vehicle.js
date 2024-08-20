@@ -17,6 +17,7 @@ class VehicleController {
         }
     }
 
+
     async get(req, res) {
         const vehicles = await FindVehiclesService.execute();
 
