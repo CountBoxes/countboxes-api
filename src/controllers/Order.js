@@ -1,5 +1,6 @@
 import CreateOrderService from '../services/Order/CreateOrderService';
 import { CreateOrderSchema } from '../validations/Order/CreateOrderSchema';
+import FindOrderssService from '../services/Order/FindOrdersService';
 
 class OrderController {
     async create(req, res) {
@@ -14,11 +15,11 @@ class OrderController {
         }
     }
 
-    // async get(req, res) {
-    //     const clients = await FindClientsService.execute();
+    async get(req, res) {
+        const orders = await FindOrderssService.execute();
 
-    //     return res.status(200).send(clients);
-    // }
+        return res.status(200).send(orders);
+    }
 
 
 }
