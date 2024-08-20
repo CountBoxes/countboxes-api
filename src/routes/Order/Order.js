@@ -4,7 +4,7 @@ const orderRoutes = new Router();
 
 orderRoutes.post('/', OrderController.create);
 
-// clientRoutes.get('/', ClientController.get);
+orderRoutes.get('/', OrderController.get);
 
 // clientRoutes.put('/:id', ClientController.update)
 

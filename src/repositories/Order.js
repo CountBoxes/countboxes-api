@@ -8,6 +8,12 @@ class OrderRepository {
         return order;
     }
 
+    async get() {
+        const orders = await prisma.order.findMany({});
+
+        return orders;
+    }
+
 }
 
 
