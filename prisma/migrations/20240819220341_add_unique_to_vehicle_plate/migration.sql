@@ -66,21 +66,11 @@ CREATE TABLE "Loading" (
 );
 
 -- CreateTable
-CREATE TABLE "Client" (
+CREATE TABLE "clients" (
     "clientCode" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "CNPJ" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "adressCode" INTEGER NOT NULL,
-
-    CONSTRAINT "Client_pkey" PRIMARY KEY ("clientCode")
-);
-
--- CreateTable
-CREATE TABLE "Adress" (
-    "adressCode" SERIAL NOT NULL,
     "country" TEXT NOT NULL,
     "region" TEXT NOT NULL,
     "state" TEXT NOT NULL,
@@ -91,7 +81,7 @@ CREATE TABLE "Adress" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Adress_pkey" PRIMARY KEY ("adressCode")
+    CONSTRAINT "clients_pkey" PRIMARY KEY ("clientCode")
 );
 
 -- CreateTable
@@ -122,19 +112,19 @@ CREATE TABLE "Vehicle" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_cpf_key" ON "users"("cpf");
-
--- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "products_productCode_key" ON "products"("productCode");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Client_CNPJ_key" ON "Client"("CNPJ");
+CREATE UNIQUE INDEX "clients_CNPJ_key" ON "clients"("CNPJ");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Vehicle_plate_key" ON "Vehicle"("plate");
 
 -- AddForeignKey
-ALTER TABLE "Order" ADD CONSTRAINT "Order_clientCode_fkey" FOREIGN KEY ("clientCode") REFERENCES "Client"("clientCode") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Order" ADD CONSTRAINT "Order_clientCode_fkey" FOREIGN KEY ("clientCode") REFERENCES "clients"("clientCode") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "OrderProduct" ADD CONSTRAINT "OrderProduct_productCode_fkey" FOREIGN KEY ("productCode") REFERENCES "products"("productCode") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -150,9 +140,6 @@ ALTER TABLE "Loading" ADD CONSTRAINT "Loading_orderProductCode_fkey" FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE "Loading" ADD CONSTRAINT "Loading_orderCode_fkey" FOREIGN KEY ("orderCode") REFERENCES "Order"("orderCode") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Client" ADD CONSTRAINT "Client_adressCode_fkey" FOREIGN KEY ("adressCode") REFERENCES "Adress"("adressCode") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Load" ADD CONSTRAINT "Load_orderCode_fkey" FOREIGN KEY ("orderCode") REFERENCES "Order"("orderCode") ON DELETE RESTRICT ON UPDATE CASCADE;

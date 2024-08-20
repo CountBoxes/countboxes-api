@@ -136,7 +136,7 @@ model Load {
 model Vehicle {
   vehicleCode Int @id @default(autoincrement())
 
-  plate  String
+  plate  String  @unique
   model  String
   type   String
   active Boolean
