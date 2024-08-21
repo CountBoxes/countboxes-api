@@ -6,6 +6,6 @@ orderRoutes.post('/', OrderController.create);
 
 orderRoutes.get('/', OrderController.get);
 
-// clientRoutes.put('/:id', ClientController.update)
+orderRoutes.put('/:id', OrderController.update)
 
 export default orderRoutes;
