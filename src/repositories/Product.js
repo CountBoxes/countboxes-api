@@ -25,7 +25,7 @@ class ProductRepository {
 
   async update(id, data) {
     const existingProduct = await prisma.product.findUnique({
-      where: { id: parseInt(id) }
+      where: { productCode: parseInt(id) }
     });
 
     if (!existingProduct) {
@@ -34,8 +34,7 @@ class ProductRepository {
 
     const productData = {
       description: data.description,
-      cuttingType: data.cuttingTypeId ? { connect: { id: data.cuttingTypeId } } : undefined,
-      grammage: data.grammage,
+      // cuttingType: data.cuttingTypeId ? { connect: { id: data.cuttingTypeId } } : undefined,
       grossWeight: data.grossWeight,
       netWeight: data.netWeight,
     };
@@ -45,7 +44,7 @@ class ProductRepository {
     }
 
     const updatedProduct = await prisma.product.update({
-      where: { id: parseInt(id) },
+      where: { productCode: parseInt(id) },
       data: productData,
     });
 
@@ -54,7 +53,7 @@ class ProductRepository {
 
   async getById(id) {
     const product = await prisma.product.findUnique({
-      where: { id: parseInt(id) },
+      where: { productCode: parseInt(id) },
     });
     return product;
   }
