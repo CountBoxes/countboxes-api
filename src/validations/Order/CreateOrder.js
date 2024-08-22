@@ -15,7 +15,7 @@ export const CreateOrderSchema = yup.object({
     .number()
     .required('O frete é obrigatório.'),
 
-  adress: yup
+  address: yup
     .string()
     .required('O endereço é obrigatório.'),
 
