@@ -16,12 +16,12 @@ class OrderProductRepository {
 
 
 
-    // async getById(id) {
-    //     const order = await prisma.order.findUnique({
-    //         where: { orderCode: parseInt(id) },
-    //     });
-    //     return order;
-    // }
+    async getByOrderCode(orderCode) {
+        const orderProducts = await prisma.orderProduct.findMany({
+            where: { orderCode: parseInt(orderCode) },
+        });
+        return orderProducts;
+    }
 
 
     //   async update(id, data) {

@@ -1,5 +1,6 @@
 import { CreateOrderProductSchema } from "../validations/OrderProduct/CreateOrderProduct";
 import CreateOrderProductService from "../services/OrderProduct/CreateOrderProductService";
+import FindOrderProductsService from "../services/OrderProduct/FindOrderProductsService";
 
 
 class OrderProductController {
@@ -20,11 +21,21 @@ class OrderProductController {
     }
   }
 
-  // async get(req, res) {
-  //   const orders = await FindOrderssService.execute();
 
-  //   return res.status(200).send(orders);
-  // }
+  async get(req, res) {
+    try {
+      const { orderCode } = req.params;
+
+      const orderProducts = await FindOrderProductsService.execute(orderCode);
+
+      return res.status(200).send(orderProducts);
+
+    } catch (error) {
+
+      return res.status(400).json({ error: error.message });
+
+    }
+  }
 
   // async update(req, res) {
   //   try {
