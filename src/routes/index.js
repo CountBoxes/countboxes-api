@@ -4,6 +4,7 @@ import productRoutes from './Product/Product';
 import clientRoutes from './Client/Client';
 import vehicleRoutes from './Vehicle/Vehicle';
 import orderRoutes from './Order/Order';
+import orderProductRoutes from './OrderProduct/OrderProduct';
 
 const routes = new Router();
 
@@ -16,5 +17,7 @@ routes.use('/clients', clientRoutes);
 routes.use('/vehicles', vehicleRoutes);
 
 routes.use('/orders', orderRoutes);
+
+routes.use('/orders/products', orderProductRoutes);
 
 export default routes;
