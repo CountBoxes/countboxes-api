@@ -11,8 +11,6 @@ class OrderProductController {
 
       const data = await CreateOrderProductSchema.validate(req.body);
 
-
-
       const orderProduct = await CreateOrderProductService.execute(productCode, orderCode, data);
 
       return res.status(201).send(orderProduct);

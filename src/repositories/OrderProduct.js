@@ -23,6 +23,19 @@ class OrderProductRepository {
         return orderProducts;
     }
 
+    async getByProductCodeAndOrderCode(orderCode, productCode) {
+        const orderProducts = await prisma.orderProduct.findMany({
+            where: {
+                orderCode: parseInt(orderCode),
+                productCode: parseInt(productCode)
+            },
+        });
+
+        console.log(orderProducts);
+
+        return orderProducts.length > 0;
+    }
+
 
     //   async update(id, data) {
     //     const existingOrder = await prisma.order.findUnique({
