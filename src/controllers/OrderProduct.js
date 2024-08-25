@@ -1,6 +1,6 @@
-import { CreateOrderProductSchema } from "../validations/OrderProduct/CreateOrderProduct";
-import CreateOrderProductService from "../services/OrderProduct/CreateOrderProductService";
-import FindOrderProductsService from "../services/OrderProduct/FindOrderProductsService";
+import { CreateOrderProductSchema } from '../validations/OrderProduct/CreateOrderProduct';
+import CreateOrderProductService from '../services/OrderProduct/CreateOrderProductService';
+import FindOrderProductsService from '../services/OrderProduct/FindOrderProductsService';
 
 
 class OrderProductController {
