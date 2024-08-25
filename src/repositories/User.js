@@ -21,7 +21,7 @@ class UserRepository {
         email: email,
       },
     });
-    return user !== null;
+    return user;
   }
 
   async getById(id) {

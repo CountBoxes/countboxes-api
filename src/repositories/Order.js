@@ -33,7 +33,7 @@ class OrderRepository {
 
     const orderData = {
       shipping: data.shipping,
-      adress: data.adress,
+      address: data.address,
       status: data.status
     };
 
