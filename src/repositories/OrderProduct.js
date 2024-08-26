@@ -16,15 +16,16 @@ class OrderProductRepository {
   }
 
   async getByProductCodeAndOrderCode(orderCode, productCode) {
-    const orderProducts = await prisma.orderProduct.findMany({
+    const orderProduct = await prisma.orderProduct.findFirst({
       where: {
         orderCode: parseInt(orderCode),
         productCode: parseInt(productCode)
       },
     });
 
-    return orderProducts.length > 0;
+    return !!orderProduct;
   }
+
 
 
   //   async update(id, data) {
