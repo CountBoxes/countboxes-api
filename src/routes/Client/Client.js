@@ -6,6 +6,6 @@ clientRoutes.post('/', ClientController.create);
 
 clientRoutes.get('/', ClientController.get);
 
-clientRoutes.put('/:id', ClientController.update)
+clientRoutes.put('/:id', ClientController.update);
 
 export default clientRoutes;

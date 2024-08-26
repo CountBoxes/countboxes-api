@@ -21,7 +21,6 @@ class OrderRepository {
     return order;
   }
 
-
   async update(id, data) {
     const existingOrder = await prisma.order.findUnique({
       where: { orderCode: parseInt(id) }

@@ -1,11 +1,11 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 export const UpdateVehicleSchema = yup.object({
 
-    model: yup
-        .string(),
+  model: yup
+    .string(),
 
-    type: yup
-        .string()
+  type: yup
+    .string()
 
 });
