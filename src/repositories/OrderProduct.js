@@ -15,6 +15,15 @@ class OrderProductRepository {
     return orderProducts;
   }
 
+  async findOrderProductByProductCode(orderCode, productCode) {
+    return prisma.orderProduct.findFirst({
+      where: {
+        orderCode: orderCode,
+        productCode: productCode,
+      },
+    });
+  }
+
   async getByProductCodeAndOrderCode(orderCode, productCode) {
     const orderProduct = await prisma.orderProduct.findFirst({
       where: {

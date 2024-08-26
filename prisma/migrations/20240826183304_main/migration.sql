@@ -17,7 +17,6 @@ CREATE TABLE "users" (
     "active" BOOLEAN NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "confirmPassword" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -41,6 +40,7 @@ CREATE TABLE "products" (
 CREATE TABLE "orders" (
     "orderCode" SERIAL NOT NULL,
     "clientCode" INTEGER NOT NULL,
+    "loadCode" INTEGER NOT NULL,
     "status" "OrderStatus" NOT NULL,
     "shipping" DOUBLE PRECISION NOT NULL,
     "address" TEXT NOT NULL,
@@ -67,6 +67,7 @@ CREATE TABLE "transactions" (
     "transactionCode" SERIAL NOT NULL,
     "transactionCategory" "TransactionCategory" NOT NULL,
     "orderProductCode" INTEGER NOT NULL,
+    "productCode" INTEGER NOT NULL,
     "orderCode" INTEGER NOT NULL,
     "userCode" INTEGER NOT NULL,
     "loadCode" INTEGER NOT NULL,
@@ -98,7 +99,6 @@ CREATE TABLE "clients" (
 -- CreateTable
 CREATE TABLE "loads" (
     "loadCode" SERIAL NOT NULL,
-    "orderCode" INTEGER NOT NULL,
     "vehicleCode" INTEGER NOT NULL,
     "status" "LoadStatus" NOT NULL,
     "userCode" INTEGER NOT NULL,
@@ -137,6 +137,9 @@ CREATE UNIQUE INDEX "vehicles_plate_key" ON "vehicles"("plate");
 ALTER TABLE "orders" ADD CONSTRAINT "orders_clientCode_fkey" FOREIGN KEY ("clientCode") REFERENCES "clients"("clientCode") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "orders" ADD CONSTRAINT "orders_loadCode_fkey" FOREIGN KEY ("loadCode") REFERENCES "loads"("loadCode") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "orderProducts" ADD CONSTRAINT "orderProducts_productCode_fkey" FOREIGN KEY ("productCode") REFERENCES "products"("productCode") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -153,9 +156,6 @@ ALTER TABLE "transactions" ADD CONSTRAINT "transactions_userCode_fkey" FOREIGN K
 
 -- AddForeignKey
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_loadCode_fkey" FOREIGN KEY ("loadCode") REFERENCES "loads"("loadCode") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "loads" ADD CONSTRAINT "loads_orderCode_fkey" FOREIGN KEY ("orderCode") REFERENCES "orders"("orderCode") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "loads" ADD CONSTRAINT "loads_vehicleCode_fkey" FOREIGN KEY ("vehicleCode") REFERENCES "vehicles"("vehicleCode") ON DELETE RESTRICT ON UPDATE CASCADE;

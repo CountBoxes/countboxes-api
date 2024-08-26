@@ -53,8 +53,12 @@ model Order {
 
   clientCode Int
   client     Client @relation(fields: [clientCode], references: [clientCode])
+  
+  loadCode Int
+  load     Load @relation(fields: [loadCode], references: [loadCode])
 
   status OrderStatus 
+
   shipping Float
   address   String
 
@@ -62,8 +66,7 @@ model Order {
   updatedAt    DateTime       @updatedAt
 
   Transaction      Transaction[]
-  OrderProduct OrderProduct[]
-  Load         Load[]
+  OrderProduct     OrderProduct[]
 
   @@map("orders")
 }
@@ -94,11 +97,13 @@ enum TransactionCategory {
 model Transaction  {
   transactionCode Int @id @default(autoincrement())
 
-  transactionCategory TransactionCategory // enum (carregamento, descarregamento)
+  transactionCategory TransactionCategory
 
-  orderProductCode Int
+  orderProductCode Int 
   orderProduct     OrderProduct @relation(fields: [orderProductCode], references: [orderProductCode])
-  
+
+  productCode Int
+
   orderCode Int
   order     Order @relation(fields: [orderCode], references: [orderCode])
 
@@ -113,6 +118,7 @@ model Transaction  {
 
   @@map("transactions")
 }
+
 
 model Client {
   clientCode Int @id @default(autoincrement())
@@ -149,9 +155,6 @@ enum LoadStatus {
 model Load {
   loadCode Int @id @default(autoincrement())
 
-  orderCode Int
-  order     Order @relation(fields: [orderCode], references: [orderCode])
-
   vehicleCode Int
   vehicle     Vehicle @relation(fields: [vehicleCode], references: [vehicleCode])
 
@@ -164,6 +167,7 @@ model Load {
   updatedAt DateTime @updatedAt
 
   transactions   Transaction[]
+  orders         Order[]
 
   @@map("loads")
 }
