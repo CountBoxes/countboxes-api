@@ -10,6 +10,9 @@ const OrderStatus = {
 };
 
 export const CreateOrderSchema = yup.object({
+  loadCode: yup
+    .number()
+    .required('O código da carga é obrigatório.'),
 
   shipping: yup
     .number()
