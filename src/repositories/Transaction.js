@@ -33,6 +33,13 @@ class TransactionRepository {
       },
     });
   }
+  async getByOrderCode(orderCode) {
+    return prisma.transaction.findMany({
+      where: {
+        orderCode: parseInt(orderCode),
+      },
+    });
+  }
 }
 
 
