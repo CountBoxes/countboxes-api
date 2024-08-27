@@ -14,6 +14,9 @@ class LoadRepository {
       },
     });
   }
+  async get() {
+    return prisma.load.findMany();
+  }
 }
 
 
