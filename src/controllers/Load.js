@@ -1,5 +1,6 @@
 import CreateLoadService from '../services/Load/CreateLoadService';
 import { CreateLoadSchema } from '../validations/Load/CreateLoad';
+import FindLoadsService from '../services/Load/FindLoadsService';
 
 
 class LoadController {
@@ -14,5 +15,12 @@ class LoadController {
       return res.status(400).json({ error: error.message });
     }
   }
+
+  async get(req, res) {
+    const loads = await FindLoadsService.execute();
+
+    return res.status(200).send(loads);
+  }
+
 }
 export default new LoadController();

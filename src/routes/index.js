@@ -27,7 +27,7 @@ routes.use('/auth', authRoutes);
 
 routes.use('/scan', TransactionRoutes);
 
-routes.use('/load', loadRoutes);
+routes.use('/loads', loadRoutes);
 
 
 export default routes;
