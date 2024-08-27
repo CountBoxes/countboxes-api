@@ -6,6 +6,6 @@ orderProductRoutes.post('/', OrderProductController.create);
 
 orderProductRoutes.get('/:orderCode', OrderProductController.get);
 
-// orderProductRoutes.put('/:id', OrderProductController.update)
+orderProductRoutes.put('/:orderProductCode', OrderProductController.update)
 
 export default orderProductRoutes;

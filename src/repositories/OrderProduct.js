@@ -15,6 +15,13 @@ class OrderProductRepository {
     return orderProducts;
   }
 
+  async getByOrderProductCode(orderProductCode) {
+    const orderProducts = await prisma.orderProduct.findMany({
+      where: { orderProductCode: parseInt(orderProductCode) },
+    });
+    return orderProducts;
+  }
+
   async findOrderProductByProductCode(orderCode, productCode) {
     return prisma.orderProduct.findFirst({
       where: {
@@ -35,34 +42,32 @@ class OrderProductRepository {
     return !!orderProduct;
   }
 
+  async update(orderProductCode, data) {
+    const existingOrderProduct = await prisma.orderProduct.findUnique({
+      where: { orderProductCode: parseInt(orderProductCode) }
+    });
 
+    if (!existingOrderProduct) {
+      throw new Error('Produto não encontrado.');
+    }
 
-  //   async update(id, data) {
-  //     const existingOrder = await prisma.order.findUnique({
-  //       where: { orderCode: parseInt(id) }
-  //     });
+    const orderProductData = {
+      quantity: data.quantity,
+      productCode: data.productCode,
+      orderCode: data.orderCode
+    };
 
-  //     if (!existingOrder) {
-  //       throw new Error('Ordem não encontrada.');
-  //     }
+    // if (data.productCode !== existingProduct.productCode) {
+    //     productData.productCode = data.productCode;
+    // }
 
-  //     const orderData = {
-  //       shipping: data.shipping,
-  //       adress: data.adress,
-  //       status: data.status
-  //     };
+    const updatedOrderProduct = await prisma.orderProduct.update({
+      where: { orderProductCode: parseInt(orderProductCode) },
+      data: orderProductData,
+    });
 
-  //     // if (data.productCode !== existingProduct.productCode) {
-  //     //     productData.productCode = data.productCode;
-  //     // }
-
-  //     const updatedOrder = await prisma.order.update({
-  //       where: { orderCode: parseInt(id) },
-  //       data: orderData,
-  //     });
-
-  //     return updatedOrder;
-  //   }
+    return updatedOrderProduct;
+  }
 
 
 }
