@@ -1,4 +1,5 @@
-import FindTransctionByLoadCodeService from '../services/Transaction/FindTransctionByLoadCodeService';
+import FindTransactionByLoadCodeService from '../services/Transaction/FindTransactionByLoadCodeService';
+import FindTransactionByOrderCodeService from '../services/Transaction/FindTransactionByOrderCodeService ';
 import TransactionService from '../services/Transaction/TransactionService';
 import { CreateTransactionSchema } from '../validations/Transaction/Transaction';
 
@@ -20,7 +21,19 @@ class TransactionController {
     try {
       const { loadCode } = req.params;
 
-      const transactions = await FindTransctionByLoadCodeService.execute(loadCode);
+      const transactions = await FindTransactionByLoadCodeService.execute(loadCode);
+
+      return res.status(200).json(transactions);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  async getTransactionsByOrderCode(req, res) {
+    try {
+      const { orderCode } = req.params;
+
+      const transactions = await FindTransactionByOrderCodeService.execute(orderCode);
 
       return res.status(200).json(transactions);
     } catch (error) {

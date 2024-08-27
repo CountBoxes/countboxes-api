@@ -4,6 +4,8 @@ const TransactionRoutes = new Router();
 
 TransactionRoutes.post('/', TransactionController.scanItem);
 
-TransactionRoutes.get('/:loadCode', TransactionController.getTransactionsByLoadCode);
+TransactionRoutes.get('/load/:loadCode', TransactionController.getTransactionsByLoadCode);
+
+TransactionRoutes.get('/order/:orderCode', TransactionController.getTransactionsByOrderCode);
 
 export default TransactionRoutes;
