@@ -26,6 +26,15 @@ class TransactionRepository {
       },
     });
   }
+  async getByLoadCode(loadCode) {
+    return prisma.transaction.findMany({
+      where: {
+        loadCode: parseInt(loadCode),
+      },
+    });
+  }
 }
+
+
 
 export default new TransactionRepository();
