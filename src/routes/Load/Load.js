@@ -6,4 +6,6 @@ loadRoutes.post('/', LoadController.create);
 
 loadRoutes.get('/', LoadController.get);
 
+loadRoutes.put('/:id', LoadController.update);
+
 export default loadRoutes;
