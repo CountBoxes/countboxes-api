@@ -17,6 +17,39 @@ class LoadRepository {
   async get() {
     return prisma.load.findMany();
   }
+
+  async getById(id) {
+    const load = prisma.load.findUnique({
+      where: {
+        loadCode: parseInt(id),
+      },
+    });
+    return load;
+
+  }
+
+  async update(id, data) {
+    const existingLoad = await prisma.load.findUnique({
+      where: { loadCode: parseInt(id) }
+    });
+
+    if (!existingLoad) {
+      throw new Error('Carga não encontrada.');
+    }
+
+    const loadData = {
+      vehicleCode: data.vehicleCode,
+      status: data.status,
+      userCode: data.userCode
+    };
+
+    const updatedLoad = await prisma.load.update({
+      where: { loadCode: parseInt(id) },
+      data: loadData,
+    });
+
+    return updatedLoad;
+  }
 }
 
 
