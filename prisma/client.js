@@ -1,3 +1,16 @@
-import { PrismaClient } from '@prisma/client'
+const { PrismaClient } = require('@prisma/client')
 
-export const prisma = new PrismaClient()
+class PrismaSingleton {
+    constructor() {
+        if (!PrismaSingleton.instance) {
+            PrismaSingleton.instance = new PrismaClient()
+        }
+    }
+
+    getInstance() {
+        return PrismaSingleton.instance
+    }
+}
+
+export const prisma = new PrismaSingleton().getInstance()
+
