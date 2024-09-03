@@ -18,9 +18,11 @@ class AuthService {
       throw new Error('Senha inválida.');
     }
 
-    const token = jwt.sign({ id: user.id, name: user.name }, SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id, user }, SECRET, {
+      expiresIn: '24h',
+    });
 
-    return { token, user: { id: user.id, name: user.name, email: user.email } };
+    return { token };
   }
 }
 
