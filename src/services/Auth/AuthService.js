@@ -10,12 +10,12 @@ class AuthService {
   async execute(data) {
     const user = await UserRepository.getByEmail(data.email);
     if (!user) {
-      throw new Error('Usuário não encontrado.');
+      throw new ErrorBadRequest('Usuário ou senha inválidos.');
     }
 
     const isPasswordValid = bcrypt.compareSync(data.password, user.password);
     if (!isPasswordValid) {
-      throw new Error('Senha inválida.');
+      throw new ErrorBadRequest('Usuário ou senha inválidos.');
     }
 
     const token = jwt.sign({ id: user.id, user }, SECRET, {
