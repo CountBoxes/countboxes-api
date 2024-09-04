@@ -2,6 +2,7 @@ import UserRepository from '../../repositories/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { ErrorBadRequest } from '../../errors/customErros';
 
 dotenv.config();
 
