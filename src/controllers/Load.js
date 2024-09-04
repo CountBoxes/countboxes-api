@@ -4,7 +4,6 @@ import UpdateLoadService from '../services/Load/UpdateLoadService';
 import { CreateLoadSchema } from '../validations/Load/CreateLoad';
 import { UpdateLoadSchema } from '../validations/Load/UpdateLoad';
 
-
 class LoadController {
   async create(req, res) {
     try {
@@ -14,7 +13,9 @@ class LoadController {
 
       return res.status(201).send(load);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
   }
 
@@ -34,11 +35,10 @@ class LoadController {
 
       return res.status(200).send(load);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
-
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
-
   }
-
 }
 export default new LoadController();

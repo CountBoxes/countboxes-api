@@ -13,7 +13,9 @@ class ProductController {
 
       return res.status(201).send(product);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
   }
 
@@ -33,11 +35,10 @@ class ProductController {
 
       return res.status(200).send(product);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
-
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
-
   }
-
 }
 export default new ProductController();

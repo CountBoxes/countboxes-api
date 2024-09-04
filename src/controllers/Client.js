@@ -4,7 +4,6 @@ import { CreateClientSchema } from '../validations/Client/CreateClient';
 import { UpdateClientSchema } from '../validations/Client/UpdateClient';
 import FindClientsService from '../services/Client/FindClientsService';
 
-
 class ClientController {
   async create(req, res) {
     try {
@@ -14,7 +13,9 @@ class ClientController {
 
       return res.status(201).send(client);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
   }
 
@@ -33,12 +34,10 @@ class ClientController {
 
       return res.status(200).send(client);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
-
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
-
   }
-
-
 }
 export default new ClientController();

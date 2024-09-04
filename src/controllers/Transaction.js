@@ -3,7 +3,6 @@ import FindTransactionByOrderCodeService from '../services/Transaction/FindTrans
 import TransactionService from '../services/Transaction/TransactionService';
 import { CreateTransactionSchema } from '../validations/Transaction/Transaction';
 
-
 class TransactionController {
   async scanItem(req, res) {
     try {
@@ -13,7 +12,9 @@ class TransactionController {
 
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
   }
 
@@ -21,11 +22,14 @@ class TransactionController {
     try {
       const { loadCode } = req.params;
 
-      const transactions = await FindTransactionByLoadCodeService.execute(loadCode);
+      const transactions =
+        await FindTransactionByLoadCodeService.execute(loadCode);
 
       return res.status(200).json(transactions);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
   }
 
@@ -33,11 +37,14 @@ class TransactionController {
     try {
       const { orderCode } = req.params;
 
-      const transactions = await FindTransactionByOrderCodeService.execute(orderCode);
+      const transactions =
+        await FindTransactionByOrderCodeService.execute(orderCode);
 
       return res.status(200).json(transactions);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
   }
 }
