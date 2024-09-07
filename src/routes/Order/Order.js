@@ -8,6 +8,8 @@ orderRoutes.post('/', authMiddleware, OrderController.create);
 
 orderRoutes.get('/', authMiddleware, OrderController.get);
 
+orderRoutes.get('/:id', authMiddleware, OrderController.getById);
+
 orderRoutes.put('/:id', OrderController.update);
 
 export default orderRoutes;
