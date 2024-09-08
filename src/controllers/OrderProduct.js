@@ -3,6 +3,8 @@ import CreateOrderProductService from '../services/OrderProduct/CreateOrderProdu
 import FindOrderProductsService from '../services/OrderProduct/FindOrderProductsService';
 import UpdateOrderProductService from '../services/OrderProduct/UpdateOrderProductService';
 import { UpdateOrderProductSchema } from '../validations/OrderProduct/UpdateOrderProduct';
+import { DeleteOrderProductSchema } from '../validations/OrderProduct/DeleteOrderProductSchema';
+import DeleteOrderProductService from '../services/OrderProduct/DeleteOrderProductService';
 
 class OrderProductController {
   async create(req, res) {
@@ -60,5 +62,31 @@ class OrderProductController {
         .json({ error: true, description: error.message });
     }
   }
+
+  async delete(req, res) {
+    try {
+        // Captura o parâmetro orderProductCode da URL
+        const { orderProductCode } = req.params;
+
+        // Valida o parâmetro usando o esquema do Yup
+        await DeleteOrderProductSchema.validate({ orderProductCode });
+
+        // Chama o serviço de deleção passando o orderProductCode
+        await DeleteOrderProductService.execute(orderProductCode);
+
+        // Retorna uma resposta de sucesso sem conteúdo (204 No Content)
+        return res.status(204).send();
+    } catch (error) {
+        // Em caso de erro de validação, retorna um status 400 (Bad Request) e a mensagem de erro
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ error: true, description: error.errors });
+        }
+
+        // Em caso de outros erros, retorna o status de erro e a mensagem apropriada
+        return res
+            .status(error.status || 500)
+            .json({ error: true, description: error.message });
+    }
+}
 }
 export default new OrderProductController();

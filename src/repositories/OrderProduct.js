@@ -42,6 +42,8 @@ class OrderProductRepository {
     return !!orderProduct;
   }
 
+  
+
   async update(orderProductCode, data) {
     const existingOrderProduct = await prisma.orderProduct.findUnique({
       where: { orderProductCode: parseInt(orderProductCode) }
@@ -69,6 +71,11 @@ class OrderProductRepository {
     return updatedOrderProduct;
   }
 
+  async delete(orderProductCode) {
+    return await prisma.orderProduct.delete({
+      where: { orderProductCode : parseInt(orderProductCode) },
+    });
+  }
 
 }
 
