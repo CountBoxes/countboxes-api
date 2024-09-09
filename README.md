@@ -22,7 +22,7 @@
 
    ```
    DATABASE_URL="postgresql://root:root@localhost:5435/mydb?schema=public"
-   PORTA qualquer uma diferente do web (5173)
+   PORT = qualquer uma diferente do web (5173)
    SECRET=MySuperSecretKey123!@#%^&*()_+-={}[]|:;<>,.?/
 5. Configuração do docker
     ```
