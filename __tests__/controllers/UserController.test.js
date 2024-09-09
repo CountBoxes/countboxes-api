@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
 import generateCPF from '../../src/utils/generateCPF';
-import generatePhone from '../../src/utils/generatePhone';
+// import generatePhone from '../../src/utils/generatePhone';
 
 describe('Create User', () => {
   it('Should create a user successfully', async () => {
@@ -41,14 +41,14 @@ describe('Create User', () => {
     const password = faker.internet.password();
 
     const user = {
-        name: `${faker.person.firstName()} ${faker.person.lastName()}`,
-        cpf: generateCPF(),
-        phone: '15996366780',
-        type: 'ADMIN',
-        email: 'invalid-email-format',
-        password: password,
-        confirmPassword: password,
-      };
+      name: `${faker.person.firstName()} ${faker.person.lastName()}`,
+      cpf: generateCPF(),
+      phone: '15996366780',
+      type: 'ADMIN',
+      email: 'invalid-email-format',
+      password: password,
+      confirmPassword: password,
+    };
 
     const userCreated = await request('http://localhost:3000').post('/users').send(user);
 
@@ -62,18 +62,18 @@ describe('Create User', () => {
     const password = faker.internet.password();
 
     const user = {
-        name: `${faker.person.firstName()} ${faker.person.lastName()}`,
-        cpf: generateCPF(),
-        phone: '15996366780',
-        type: 'ADMIN',
-        email: faker.internet.email(),
-        password: password,
-        confirmPassword: `${password}123`,
-      };
+      name: `${faker.person.firstName()} ${faker.person.lastName()}`,
+      cpf: generateCPF(),
+      phone: '15996366780',
+      type: 'ADMIN',
+      email: faker.internet.email(),
+      password: password,
+      confirmPassword: `${password}123`,
+    };
 
     const userCreated = await request('http://localhost:3000')
-        .post('/users')
-        .send(user);
+      .post('/users')
+      .send(user);
 
     expect(userCreated.status).toBe(400);
     expect(userCreated.body).toHaveProperty('error');
@@ -84,7 +84,7 @@ describe('Create User', () => {
 
     const password = faker.internet.password();
     const email = faker.internet.email();
-  
+
     const existingUser = {
       name: `${faker.person.firstName()} ${faker.person.lastName()}`,
       cpf: generateCPF(),
@@ -94,15 +94,15 @@ describe('Create User', () => {
       password: password,
       confirmPassword: password,
     };
-  
+
     const response = await request('http://localhost:3000')
       .post('/users')
       .send(existingUser);
-  
+
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('userCode');
     expect(response.body).toHaveProperty('email', existingUser.email);
-  
+
     const userWithDuplicateEmail = {
       name: `${faker.person.firstName()} ${faker.person.lastName()}`,
       cpf: generateCPF(),
@@ -112,39 +112,38 @@ describe('Create User', () => {
       password: password,
       confirmPassword: password,
     };
-  
+
     const duplicateResponse = await request('http://localhost:3000')
       .post('/users')
       .send(userWithDuplicateEmail);
-  
+
     expect(duplicateResponse.status).toBe(400);
     expect(duplicateResponse.body).toHaveProperty('error', true);
     expect(duplicateResponse.body).toHaveProperty('description', 'Esse email já está cadastrado.');
   });
-  
+
   it('Should return an error when CPF is invalid', async () => {
 
     const password = faker.internet.password();
-    
+
     const userWithInvalidCPF = {
       name: `${faker.person.firstName()} ${faker.person.lastName()}`,
-      cpf: '12345678900', 
+      cpf: '12345678900',
       phone: '15996366780',
       type: 'ADMIN',
       email: faker.internet.email(),
       password: password,
       confirmPassword: password,
     };
-  
+
     const response = await request('http://localhost:3000')
       .post('/users')
       .send(userWithInvalidCPF);
-  
-      
-      expect(response.status).toBe(400);
-      expect(response.body).toHaveProperty('error', true);
-      expect(response.body).toHaveProperty('description', 'CPF inválido');
-      console.log(response.body);
+
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('error', true);
+    expect(response.body).toHaveProperty('description', 'CPF inválido');
   });
-  
+
 });
