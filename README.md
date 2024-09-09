@@ -8,7 +8,7 @@
 
 ## Instalação
 1. Clone o repositório:
-    ```bash
+    ```
     git clone https://github.com/usuario/countboxes-api.git
 2. Acesse o diretório do projeto:
     ```
@@ -18,17 +18,17 @@
    npm install
 4. Configure as variáveis de ambiente:
    - Crie um arquivo .env na raiz do projeto e adicione suas configurações.
+
    ```
    DATABASE_URL="postgresql://root:root@localhost:5435/mydb?schema=public"
    
    SECRET=MySuperSecretKey123!@#%^&*()_+-={}[]|:;<>,.?/
-6. Execute as migrações do Prisma para criar as tabelas no banco de dados:
+5. Execute as migrações do Prisma para criar as tabelas no banco de dados:
    ```
     npx prisma migrate dev
-7. Inicie o servidor:
+6. Inicie o servidor:
    ```
    npm run dev
-   
 ## Métodos
 Requisições para a API devem seguir os padrões:
 | Método | Descrição |
@@ -37,7 +37,6 @@ Requisições para a API devem seguir os padrões:
 | `POST` | Utilizado para criar um novo registro. |
 | `PUT` | Atualiza dados de um registro ou altera sua situação. |
 | `DELETE` | Remove um registro do sistema. |
-
 
 ## Respostas
 
