@@ -32,7 +32,7 @@ const config = {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -116,7 +116,7 @@ const config = {
   // reporters: undefined,
 
   // Automatically reset mock state before every test
-  // resetMocks: false,
+  resetMocks: true,
 
   // Reset the module registry before running each individual test
   // resetModules: false,
@@ -177,7 +177,7 @@ const config = {
   // testRunner: "jest-circus/runner",
 
   // A map from regular expressions to paths to transformers
-  transform: {"^.+\\.js$": "babel-jest"},
+  transform: {'^.+\\.js$': 'babel-jest'},
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [

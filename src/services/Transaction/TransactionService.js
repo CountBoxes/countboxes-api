@@ -6,12 +6,16 @@ class TransactionService {
   async scanItem({ orderCode, productCode, userCode, loadCode, transactionCategory }) {
     const load = await LoadRepository.findLoadByCode(loadCode);
     if (!load) {
-      throw new Error('Carga não encontrada para o código fornecido.');
+      const error = new Error('Carga não encontrada para o código fornecido.');
+      error.status = 400;
+      throw error;
     }
 
     const orderProduct = await OrderProductRepository.findOrderProductByProductCode(orderCode, productCode);
     if (!orderProduct) {
-      throw new Error('Produto não encontrado na ordem de pedido.');
+      const error = new Error('Produto não encontrado na ordem de pedido.');
+      error.status = 400;
+      throw error;
     }
 
     const orderProductCode = orderProduct.orderProductCode;
@@ -23,12 +27,16 @@ class TransactionService {
 
     if (transactionCategory === 'DESCARREGAMENTO') {
       if (currentBalance <= 0) {
-        throw new Error('Não há itens suficientes para descarregar.');
+        const error = new Error('Não há itens suficientes para descarregar.');
+        error.status = 400;
+        throw error;
       }
       currentBalance -= 1;
 
       if (unloadedQuantity + 1 > loadedQuantity) {
-        throw new Error('Não é possível descarregar mais itens do que foram carregados.');
+        const error = new Error('Não é possível descarregar mais itens do que foram carregados.');
+        error.status = 400;
+        throw error;
       }
     } else if (transactionCategory === 'CARREGAMENTO') {
       if (currentBalance >= maxQuantity) {
@@ -37,7 +45,9 @@ class TransactionService {
       currentBalance += 1;
 
       if (loadedQuantity + 1 > maxQuantity) {
-        throw new Error('Carregamento excede a quantidade total permitida para esse produto.');
+        const error = new Error('Carregamento excede a quantidade total permitida para esse produto.');
+        error.status = 400;
+        throw error;
       }
     }
 
