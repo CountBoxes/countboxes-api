@@ -1,31 +1,50 @@
-import prisma from "../../prisma/client";
+import { prisma } from '../../prisma/client';
 
-export const createUser = async (data) => {
-  const user = await prisma.user.create({
-    data,
-  });
-  return user;
-};
+class UserRepository {
+  async create(data) {
+    const user = await prisma.user.create({
+      data,
+    });
 
-export const getAll = async () => {
+    return user;
+  }
+
+  async getAll() {
     const users = await prisma.user.findMany({});
-    return users;
-}
 
-export const getUserByCPF = async (cpf) => {
+    return users;
+  }
+
+  async getByEmail(email) {
     const user = await prisma.user.findUnique({
-        where: {
-            cpf: cpf,
-        },
+      where: {
+        email: email,
+      },
     });
     return user;
-};
+  }
 
-export const getByEmail = async (email) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
-  return user;
-};
+  async getById(id) {
+    const user = await prisma.user.findUnique({
+      where: { userCode: parseInt(id) },
+    });
+    return user;
+  }
+
+  async update(id, data) {
+    const updatedUser = await prisma.user.update({
+      where: { userCode: Number(id) },
+      data: {
+        name: data.name,
+        phone: data.phone,
+        type: data.type,
+        active: data.active,
+        password: data.password,
+        email: data.email
+      }
+    });
+    return updatedUser;
+  }
+}
+
+export default new UserRepository();

@@ -1,0 +1,606 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Documentação CountBoxes API",
+    "description": "Aqui você encontrará todas as APIs referente ao projeto CountBoxes.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": [
+          "/users"
+        ],
+        "summary": "Lista todos os usuários",
+        "description": "Obtém uma lista de todos os usuários.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de usuários",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                      },
+                      "cpf": {
+                        "type": "string",
+                        "example": "02380747067"
+                      },
+                      "phone": {
+                        "type": "string",
+                        "example": "48984531128"
+                      },
+                      "type": {
+                        "type": "string",
+                        "example": "1"
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "A"
+                      },
+                      "password": {
+                        "type": "string",
+                        "example": "1234567"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-08T19:04:53.241Z"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-08-08T19:04:53.241Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "/users"
+        ],
+        "summary": "Cria um novo usuário",
+        "description": "Cria um novo usuário no sistema.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "example": "45854212030"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "79972471555"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "active": { 
+                    "type": "boolean", 
+                    "example": true 
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "johndoe@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "1234556"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "1234556"
+                  }
+                },
+                "required": ["name", "cpf", "phone", "type", "email", "password", "confirmPassword"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userCode": {
+                      "type": "number",
+                      "example": "3"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "John Doe"
+                    },
+                    "cpf": {
+                      "type": "string",
+                      "example": "45854212030"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "example": "79972471555"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "1"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "johndoe1@example.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "1234556"
+                    },
+                    "confirmPassword": {
+                      "type": "string",
+                      "example": "1234556"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-16T16:54:48.751Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-16T16:54:48.751Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitação inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Dados inválidos fornecidos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "tags": [
+          "/users"
+        ],
+        "summary": "Atualiza um usuário existente",
+        "description": "Atualiza um usuário com base no ID fornecido.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "ID do usuário a ser atualizado"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "79972471555"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "4"
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "johndoe@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "1234556"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "1234556"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "John Doe da Silva"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "example": "44111111111"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "3"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "A"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "1234556"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-08T19:04:53.241Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-12T04:30:52.642Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "/products"
+        ],
+        "summary": "Lista todos os produtos",
+        "description": "Obtém uma lista de todos os produtos.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de produtos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": "1"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "Batata Lisa Sabor Churrasco 45g CX/10"
+                        },
+                        "cuttingTypeId": {
+                          "type": "number",
+                          "example": "1"
+                        },
+                        "grammage": {
+                          "type": "number",
+                          "example": "0.045"
+                        },
+                        "grossWeight": {
+                          "type": "number",
+                          "example": "0.45"
+                        },
+                        "netWeight": {
+                          "type": "number",
+                          "example": "0.45"
+                        },
+                        "productCode": {
+                          "type": "string",
+                          "example": "100"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2024-08-13T01:37:10.546Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2024-08-13T01:37:10.546Z"
+                        }
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "/products"
+        ],
+        "summary": "Cria um novo produto",
+        "description": "Cria um novo produto no sistema.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "example": "Batata Lisa Sabor Requeijão 45g CX/10"
+                  },
+                  "cuttingType": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "grammage": {
+                    "type": "number",
+                    "example": "0.045"
+                  },
+                  "grossWeight": {
+                    "type": "number",
+                    "example": "0.45"
+                  },
+                  "netWeight": {
+                    "type": "number",
+                    "example": "0.45"
+                  },
+                  "productCode": {
+                    "type": "string",
+                    "example": "115"
+                  }
+                },
+                "required": ["cuttingTypeId", "grammage", "grossWeight", "netWeight","productCode"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Produto criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": "7"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Batata Lisa Sabor Requeijão 45g CX/10"
+                    },
+                    "cuttingTypeId": {
+                      "type": "number",
+                      "example": "1"
+                    },
+                    "grammage": {
+                      "type": "number",
+                      "example": "0.045"
+                    },
+                    "grossWeight": {
+                      "type": "number",
+                      "example": "0.45"
+                    },
+                    "netWeight": {
+                      "type": "number",
+                      "example": "0.45"
+                    },
+                    "productCode": {
+                      "type": "string",
+                      "example": "115"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-13T02:26:52.144Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-13T02:26:52.144Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitação inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Dados inválidos fornecidos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "put": {
+        "tags": [
+          "/products"
+        ],
+        "summary": "Atualiza um produto existente",
+        "description": "Atualiza um produto com base no ID fornecido.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "ID do produto a ser atualizado"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "example": "Batata Lisa Sabor Requeijão 45g CX/10"
+                  },
+                  "cuttingType": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "grammage": {
+                    "type": "number",
+                    "example": "0.045"
+                  },
+                  "grossWeight": {
+                    "type": "number",
+                    "example": "0.45"
+                  },
+                  "netWeight": {
+                    "type": "number",
+                    "example": "0.45"
+                  },
+                  "productCode": {
+                    "type": "string",
+                    "example": "115"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Produto atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": "7"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Batata Lisa Sabor Requeijão 60g CX/10"
+                    },
+                    "cuttingTypeId": {
+                      "type": "number",
+                      "example": "1"
+                    },
+                    "grammage": {
+                      "type": "number",
+                      "example": "0.06"
+                    },
+                    "grossWeight": {
+                      "type": "number",
+                      "example": "0.6"
+                    },
+                    "netWeight": {
+                      "type": "number",
+                      "example": "0.6"
+                    },
+                    "productCode": {
+                      "type": "string",
+                      "example": "115"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-13T02:26:52.144Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-13T03:00:09.096Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

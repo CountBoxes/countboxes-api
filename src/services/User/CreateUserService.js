@@ -1,14 +1,26 @@
-import { createUser, getByEmail } from "../../repositories/User";
+import UserRepository from '../../repositories/User';
+import bcrypt from 'bcrypt';
+import validateCPF from '../../utils/validateCPF';
 
 class CreateUserService {
   async execute(data) {
-    const emailAlreadyExists = getByEmail(data.email);
+
+    const emailAlreadyExists = await UserRepository.getByEmail(data.email);
 
     if (emailAlreadyExists) {
-      throw new Error("Email already exists");
+      const error = new Error('Esse email já está cadastrado.');
+      error.status = 400;
+      throw error;
     }
 
-    const user = await createUser(data);
+    const hashedPassword = bcrypt.hashSync(data.password, 10);
+    const { confirmPassword , ...userData } = data;
+
+
+    const user = await UserRepository.create({
+      ...userData,
+      password: hashedPassword,
+    });
 
     return user;
   }

@@ -8,16 +8,160 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  userCode  Int      @id @default(autoincrement())
   name      String
-  cpf       String   @unique
+  cpf       String
   phone     String
   type      String
-  status    String
+  active    Boolean
+  email     String   @unique
   password  String
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  Transaction Transaction[]
+  Load        Load[]
+
   @@map("users")
+}
+
+model Product {
+  productCode String @id @unique
+  description String
+  grossWeight Float // Peso bruto
+  netWeight   Float // Peso líquido
+  unit        String // Unidade de medida
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  OrderProduct OrderProduct[]
+
+  @@map("products")
+}
+
+enum OrderStatus {
+  ABERTO
+  CARREGADO
+  EM_TRANSITO
+  ENTREGUE
+  CANCELADO
+  DEVOLVIDO
+}
+
+model Order {
+  orderCode    Int            @id @default(autoincrement())
+  clientCode   Int
+  loadCode     Int
+  status       OrderStatus
+  shipping     Float
+  address      String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Transaction  Transaction[]
+  OrderProduct OrderProduct[]
+
+  client Client @relation(fields: [clientCode], references: [clientCode])
+  load   Load   @relation(fields: [loadCode], references: [loadCode])
+
+  @@map("orders")
+}
+
+model OrderProduct {
+  orderProductCode Int           @id @default(autoincrement())
+  quantity         Int
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  Transaction      Transaction[]
+  productCode      String
+  orderCode        Int
+
+  order   Order   @relation(fields: [orderCode], references: [orderCode])
+  product Product @relation(fields: [productCode], references: [productCode])
+
+  @@map("orderProducts")
+}
+
+enum TransactionCategory {
+  CARREGAMENTO
+  DESCARREGAMENTO
+}
+
+model Transaction {
+  transactionCode     Int                 @id @default(autoincrement())
+  transactionCategory TransactionCategory
+  orderProductCode    Int
+  productCode         String
+  orderCode           Int
+  userCode            Int
+  loadCode            Int
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  order        Order        @relation(fields: [orderCode], references: [orderCode])
+  orderProduct OrderProduct @relation(fields: [orderProductCode], references: [orderProductCode])
+  user         User         @relation(fields: [userCode], references: [userCode])
+  load         Load         @relation(fields: [loadCode], references: [loadCode])
+
+  @@map("transactions")
+}
+
+model Client {
+  clientCode Int    @id @default(autoincrement())
+  CNPJ       String @unique
+  name       String
+  phone      String
+  country    String
+  region     String
+  state      String
+  city       String
+  street     String
+  number     String
+  zipCode    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order[]
+
+  @@map("clients")
+}
+
+enum LoadStatus {
+  PENDENTE
+  AGENDADO
+  CARREGANDO
+  CARREGADO
+  EM_TRANSITO
+  ENTREGUE
+  CANCELADO
+  RETORNADO
+}
+
+model Load {
+  loadCode    Int        @id @default(autoincrement())
+  vehicleCode Int
+  status      LoadStatus
+  userCode    Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  user         User          @relation(fields: [userCode], references: [userCode])
+  vehicle      Vehicle       @relation(fields: [vehicleCode], references: [vehicleCode])
+  transactions Transaction[]
+  orders       Order[]
+
+  @@map("loads")
+}
+
+model Vehicle {
+  vehicleCode Int      @id @default(autoincrement())
+  plate       String   @unique
+  model       String
+  type        String
+  active      Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  Load Load[]
+
+  @@map("vehicles")
 }

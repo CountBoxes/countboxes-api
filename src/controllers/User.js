@@ -1,39 +1,48 @@
-import { createUser, getAll, getUserByCPF, getUserByEmail } from "../repositories/User";
-import { userValidation } from "../validations/User";
-
-export const create = async(req, res) => {
+import { CreateUserSchema } from '../validations/User/CreateUser';
+import CreateUserService from '../services/User/CreateUserService';
+import FindUsersService from '../services/User/FindUsersService';
+import UpdateUserService from '../services/User/UpdateUserService';
+import { UpdateUserSchema } from '../validations/User/UpdateUser';
+class UserController {
+  async create(req, res) {
     try {
-        await userValidation.validate(req.body);
+      const data = await CreateUserSchema.validate(req.body);
 
-        const existingUser = await getUserByCPF(req.body.cpf);
-        if (existingUser) {
-            return res.status(409).send({ message: 'CPF já está em uso.' });
-        }
+      const user = await CreateUserService.execute(data);
 
-        const user = await createUser(req.body);
-        res.status(200).send(user);
-    } catch(err) {
-        res.status(400).send(err);
+      return res.status(200).send(user);
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        return res
+        .status(400)
+        .json({ error: true, description: error.message });
+      }
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
     }
+  }
+
+  async getAll(req, res) {
+    const users = await FindUsersService.execute();
+
+    return res.status(200).send(users);
+  }
+
+  async update(req, res) {
+    try {
+      const { id } = req.params;
+      const data = await UpdateUserSchema.validate(req.body);
+
+      const user = await UpdateUserService.execute(id, data);
+
+      return res.status(200).send(user);
+    } catch (error) {
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
+    }
+  }
 }
 
-export const create = async (req, res) => {
-  try {
-    const data = await userValidation.validate(req.body);
-
-    const user = CreateUserService.execute(data);
-
-    res.status(200).send(user);
-  } catch (err) {
-    res.status(400).send(err);
-  }
-};
-
-export const get = async (req, res) => {
-  try {
-    const users = await getAll();
-    res.status(200).send(users);
-  } catch (err) {
-    res.status(400).send(err);
-  }
-};
+export default new UserController();

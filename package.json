@@ -1,25 +1,47 @@
 {
-  "name": "countboxes-api",
-  "version": "1.0.0",
-  "description": "<img src=\"./ModelagemEngSoft.drawio.png\">",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@prisma/client": "^5.18.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "prisma": "^5.18.0",
-    "yup": "^1.4.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.4",
-    "sucrase": "^3.35.0"
-  }
+    "name": "countboxes-api",
+    "version": "1.0.0",
+    "description": "<img src=\"./ModelagemEngSoft.drawio.png\">",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon ./src/index.js",
+        "format:check": "prettier --check .",
+        "format:write": "prettier --write .",
+        "lint:check": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "seed": "node ./prisma/seed.js",
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@prisma/client": "^5.18.0",
+        "bcrypt": "^5.1.1",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "jsonwebtoken": "^9.0.2",
+        "prisma": "^5.18.0",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1",
+        "yup": "^1.4.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.25.2",
+        "@babel/preset-env": "^7.25.4",
+        "@babel/preset-typescript": "^7.24.7",
+        "@eslint/js": "^9.8.0",
+        "@faker-js/faker": "^9.0.0",
+        "babel-jest": "^29.7.0",
+        "eslint": "^9.9.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "globals": "^15.9.0",
+        "jest": "^29.7.0",
+        "nodemon": "^3.1.4",
+        "prettier": "^3.3.3",
+        "sucrase": "^3.35.0",
+        "supertest": "^7.0.0"
+    }
 }
