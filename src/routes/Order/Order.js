@@ -10,6 +10,8 @@ orderRoutes.get('/', authMiddleware, OrderController.get);
 
 orderRoutes.get('/open', authMiddleware, OrderController.open);
 
+orderRoutes.get('/loaded', authMiddleware, OrderController.load);
+
 orderRoutes.get('/:id', authMiddleware, OrderController.findById);
 
 orderRoutes.put('/:id', OrderController.update);

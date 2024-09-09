@@ -4,6 +4,7 @@ import { UpdateOrderSchema } from '../validations/Order/UpdateOrder';
 import FindOrdersService from '../services/Order/FindOrdersService';
 import UpdateOrderService from '../services/Order/UpdateOrderService';
 import FindPendingOrdersService from '../services/Order/FindPendingOrdersService';
+import FindLoadedOrdersService from '../services/Order/FindLoadedOrdersService';
 import FindByIdOrderService from '../services/Order/FindByIdOrderService';
 
 class OrderController {
@@ -38,6 +39,18 @@ class OrderController {
   async open(req, res) {
     try {
       const data = await FindPendingOrdersService.execute();
+
+      return res.status(200).json(data);
+    } catch (error) {
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
+    }
+  }
+
+  async load(req, res) {
+    try {
+      const data = await FindLoadedOrdersService.execute();
 
       return res.status(200).json(data);
     } catch (error) {

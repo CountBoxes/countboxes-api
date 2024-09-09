@@ -47,6 +47,16 @@ class OrderRepository {
     return orders;
   }
 
+  async findLoaded() {
+    const orders = await prisma.order.findMany({
+      where: {
+        status: OrderStatus.CARREGADO,
+      },
+    });
+
+    return orders;
+  }
+
   async update(id, data) {
     const existingOrder = await prisma.order.findUnique({
       where: { orderCode: parseInt(id) },
