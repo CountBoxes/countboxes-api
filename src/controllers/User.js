@@ -12,6 +12,11 @@ class UserController {
 
       return res.status(200).send(user);
     } catch (error) {
+      if (error.name === 'ValidationError') {
+        return res
+        .status(400)
+        .json({ error: true, description: error.message });
+      }
       return res
         .status(error.status || 500)
         .json({ error: true, description: error.message });
