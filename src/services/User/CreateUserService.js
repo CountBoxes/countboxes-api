@@ -1,17 +1,21 @@
 import UserRepository from '../../repositories/User';
 import bcrypt from 'bcrypt';
+import validateCPF from '../../utils/validateCPF';
+
 class CreateUserService {
   async execute(data) {
 
     const emailAlreadyExists = await UserRepository.getByEmail(data.email);
 
     if (emailAlreadyExists) {
-      throw new Error('Esse email já esta cadastrado.');
+      const error = new Error('Esse email já está cadastrado.');
+      error.status = 400;
+      throw error;
     }
 
     const hashedPassword = bcrypt.hashSync(data.password, 10);
-    // eslint-disable-next-line no-unused-vars
     const { confirmPassword , ...userData } = data;
+
 
     const user = await UserRepository.create({
       ...userData,
