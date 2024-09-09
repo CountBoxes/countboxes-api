@@ -5,6 +5,7 @@
 - Node.js instalado
 - PostgreSQL instralado, configurado e em execução
 - Prisma instalado e configurado para conectar com o banco de dados
+- Docker instalado e configurado
 
 ## Instalação
 1. Clone o repositório:
@@ -23,10 +24,13 @@
    DATABASE_URL="postgresql://root:root@localhost:5435/mydb?schema=public"
    
    SECRET=MySuperSecretKey123!@#%^&*()_+-={}[]|:;<>,.?/
-5. Execute as migrações do Prisma para criar as tabelas no banco de dados:
+5. Configuração do docker
+    ```
+    docker compose up -d
+6. Execute as migrações do Prisma para criar as tabelas no banco de dados:
    ```
     npx prisma migrate dev
-6. Inicie o servidor:
+7. Inicie o servidor:
    ```
    npm run dev
 ## Métodos
