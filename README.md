@@ -7,9 +7,28 @@
 - Prisma instalado e configurado para conectar com o banco de dados
 
 ## Instalação
-1. Clone o repositório
-    + Body git clone https://github.com/usuario/countboxes-api.git
-
+1. Clone o repositório:
+    ```bash
+    git clone https://github.com/usuario/countboxes-api.git
+2. Acesse o diretório do projeto:
+    ```
+    cd countboxes-api
+3. Instale as dependências:
+   ```
+   npm install
+4. Configure as variáveis de ambiente:
+   - Crie um arquivo .env na raiz do projeto e adicione suas configurações.
+   ```
+   DATABASE_URL="postgresql://root:root@localhost:5435/mydb?schema=public"
+   
+   SECRET=MySuperSecretKey123!@#%^&*()_+-={}[]|:;<>,.?/
+6. Execute as migrações do Prisma para criar as tabelas no banco de dados:
+   ```
+    npx prisma migrate dev
+7. Inicie o servidor:
+   ```
+   npm run dev
+   
 ## Métodos
 Requisições para a API devem seguir os padrões:
 | Método | Descrição |
