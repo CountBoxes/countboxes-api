@@ -1,25 +1,13 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 export const CreateProductSchema = yup.object({
-    productCode:
-        yup.number()
-            .required('Código do Produto é obrigatório'),
+  productCode: yup.string().required('Código do Produto é obrigatório'),
 
-    description:
-        yup.string()
-            .optional(),
+  description: yup.string().optional(),
 
+  grossWeight: yup.number().required('Peso Bruto é obrigatório'),
 
-    grossWeight:
-        yup.number()
-            .required('Peso Bruto é obrigatório'),
+  netWeight: yup.number().required('Peso Líquido é obrigatório'),
 
-    netWeight:
-        yup.number()
-            .required('Peso Líquido é obrigatório'),
-
-
-    unit:
-        yup.string()
-            .required('Unidade é obrigatório'),
-})
+  unit: yup.string().required('Unidade é obrigatório'),
+});

@@ -359,7 +359,7 @@
                           "example": "0.45"
                         },
                         "productCode": {
-                          "type": "number",
+                          "type": "string",
                           "example": "100"
                         },
                         "createdAt": {
@@ -414,7 +414,7 @@
                     "example": "0.45"
                   },
                   "productCode": {
-                    "type": "number",
+                    "type": "string",
                     "example": "115"
                   }
                 },
@@ -456,7 +456,7 @@
                       "example": "0.45"
                     },
                     "productCode": {
-                      "type": "number",
+                      "type": "string",
                       "example": "115"
                     },
                     "createdAt": {
@@ -540,7 +540,7 @@
                     "example": "0.45"
                   },
                   "productCode": {
-                    "type": "number",
+                    "type": "string",
                     "example": "115"
                   }
                 }
@@ -581,7 +581,7 @@
                       "example": "0.6"
                     },
                     "productCode": {
-                      "type": "number",
+                      "type": "string",
                       "example": "115"
                     },
                     "createdAt": {

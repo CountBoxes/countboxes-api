@@ -4,7 +4,9 @@ class UpdateOrderService {
   async execute(id, data) {
     const idAlreadyExists = await OrderRepository.getById(id);
     if (!idAlreadyExists) {
-      throw new Error('Ordem de pedido não encontrada. Verifique se o id está correto.');
+      throw new Error(
+        'Ordem de pedido não encontrada. Verifique se o id está correto.',
+      );
     }
 
     const order = await OrderRepository.update(id, data);

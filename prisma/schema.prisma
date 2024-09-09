@@ -8,27 +8,25 @@ datasource db {
 }
 
 model User {
-  userCode Int @id @default(autoincrement())
+  userCode  Int      @id @default(autoincrement())
+  name      String
+  cpf       String
+  phone     String
+  type      String
+  active    Boolean
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  name            String
-  cpf             String
-  phone           String
-  type            String
-  active          Boolean
-  email           String  @unique
-  password        String
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Transaction   Transaction[]
-  Load      Load[]
+  Transaction Transaction[]
+  Load        Load[]
 
   @@map("users")
 }
 
 model Product {
-  productCode Int @id @unique
-
+  productCode String @id @unique
   description String
   grossWeight Float // Peso bruto
   netWeight   Float // Peso líquido
@@ -40,6 +38,7 @@ model Product {
 
   @@map("products")
 }
+
 enum OrderStatus {
   ABERTO
   CARREGADO
@@ -48,43 +47,36 @@ enum OrderStatus {
   CANCELADO
   DEVOLVIDO
 }
+
 model Order {
-  orderCode Int @id @default(autoincrement())
-
-  clientCode Int
-  client     Client @relation(fields: [clientCode], references: [clientCode])
-  
-  loadCode Int
-  load     Load @relation(fields: [loadCode], references: [loadCode])
-
-  status OrderStatus 
-
-  shipping Float
-  address   String
-
+  orderCode    Int            @id @default(autoincrement())
+  clientCode   Int
+  loadCode     Int
+  status       OrderStatus
+  shipping     Float
+  address      String
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
+  Transaction  Transaction[]
+  OrderProduct OrderProduct[]
 
-  Transaction      Transaction[]
-  OrderProduct     OrderProduct[]
+  client Client @relation(fields: [clientCode], references: [clientCode])
+  load   Load   @relation(fields: [loadCode], references: [loadCode])
 
   @@map("orders")
 }
 
 model OrderProduct {
-  orderProductCode Int @id @default(autoincrement())
+  orderProductCode Int           @id @default(autoincrement())
+  quantity         Int
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  Transaction      Transaction[]
+  productCode      String
+  orderCode        Int
 
-  quantity Int
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Transaction   Transaction[]
-
-  productCode Int
-  product     Product @relation(fields: [productCode], references: [productCode])
-
-  orderCode Int
-  order     Order @relation(fields: [orderCode], references: [orderCode])
+  order   Order   @relation(fields: [orderCode], references: [orderCode])
+  product Product @relation(fields: [productCode], references: [productCode])
 
   @@map("orderProducts")
 }
@@ -94,49 +86,41 @@ enum TransactionCategory {
   DESCARREGAMENTO
 }
 
-model Transaction  {
-  transactionCode Int @id @default(autoincrement())
-
+model Transaction {
+  transactionCode     Int                 @id @default(autoincrement())
   transactionCategory TransactionCategory
+  orderProductCode    Int
+  productCode         String
+  orderCode           Int
+  userCode            Int
+  loadCode            Int
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
 
-  orderProductCode Int 
-  orderProduct     OrderProduct @relation(fields: [orderProductCode], references: [orderProductCode])
-
-  productCode Int
-
-  orderCode Int
-  order     Order @relation(fields: [orderCode], references: [orderCode])
-
-  userCode Int
-  user     User @relation(fields: [userCode], references: [userCode])
-
-  loadCode Int
-  load      Load @relation(fields: [loadCode], references: [loadCode])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  order        Order        @relation(fields: [orderCode], references: [orderCode])
+  orderProduct OrderProduct @relation(fields: [orderProductCode], references: [orderProductCode])
+  user         User         @relation(fields: [userCode], references: [userCode])
+  load         Load         @relation(fields: [loadCode], references: [loadCode])
 
   @@map("transactions")
 }
 
-
 model Client {
-  clientCode Int @id @default(autoincrement())
-
-  CNPJ    String @unique
-  name    String
-  phone   String
-  country String
-  region  String
-  state   String
-  city    String
-  street  String
-  number  String
-  zipCode String
+  clientCode Int    @id @default(autoincrement())
+  CNPJ       String @unique
+  name       String
+  phone      String
+  country    String
+  region     String
+  state      String
+  city       String
+  street     String
+  number     String
+  zipCode    String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Order   Order[]
+  Order     Order[]
 
   @@map("clients")
 }
@@ -153,36 +137,31 @@ enum LoadStatus {
 }
 
 model Load {
-  loadCode Int @id @default(autoincrement())
-
+  loadCode    Int        @id @default(autoincrement())
   vehicleCode Int
-  vehicle     Vehicle @relation(fields: [vehicleCode], references: [vehicleCode])
+  status      LoadStatus
+  userCode    Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
-  status LoadStatus
-
-  userCode Int
-  user     User @relation(fields: [userCode], references: [userCode])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  transactions   Transaction[]
-  orders         Order[]
+  user         User          @relation(fields: [userCode], references: [userCode])
+  vehicle      Vehicle       @relation(fields: [vehicleCode], references: [vehicleCode])
+  transactions Transaction[]
+  orders       Order[]
 
   @@map("loads")
 }
 
 model Vehicle {
-  vehicleCode Int @id @default(autoincrement())
+  vehicleCode Int      @id @default(autoincrement())
+  plate       String   @unique
+  model       String
+  type        String
+  active      Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  plate  String  @unique
-  model  String
-  type   String
-  active Boolean
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Load      Load[]
+  Load Load[]
 
   @@map("vehicles")
 }

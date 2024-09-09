@@ -3,6 +3,7 @@ import CreateOrderProductService from '../services/OrderProduct/CreateOrderProdu
 import FindOrderProductsService from '../services/OrderProduct/FindOrderProductsService';
 import UpdateOrderProductService from '../services/OrderProduct/UpdateOrderProductService';
 import { UpdateOrderProductSchema } from '../validations/OrderProduct/UpdateOrderProduct';
+import GetByIdOrderProductService from '../services/OrderProduct/GetByIdOrderProductService';
 
 class OrderProductController {
   async create(req, res) {
@@ -14,7 +15,7 @@ class OrderProductController {
       const orderProduct = await CreateOrderProductService.execute(
         productCode,
         orderCode,
-        data
+        data,
       );
 
       return res.status(201).send(orderProduct);
@@ -39,6 +40,21 @@ class OrderProductController {
     }
   }
 
+  async getById(req, res) {
+    try {
+      const { orderProductCode } = req.params;
+
+      const orderProducts =
+        await GetByIdOrderProductService.execute(orderProductCode);
+
+      return res.status(200).send(orderProducts);
+    } catch (error) {
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
+    }
+  }
+
   async update(req, res) {
     try {
       const { orderProductCode } = req.params;
@@ -50,7 +66,7 @@ class OrderProductController {
 
       const order = await UpdateOrderProductService.execute(
         orderProductCode,
-        data
+        data,
       );
 
       return res.status(200).send(order);

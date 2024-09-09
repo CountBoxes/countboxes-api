@@ -1,12 +1,12 @@
 import OrderProductRepository from '../../repositories/OrderProduct';
 
 class FindOrderProductsService {
-    async execute(orderCode) {
+  async execute(orderCode) {
+    const orderProducts =
+      await OrderProductRepository.getByOrderCode(orderCode);
 
-        const orderProducts = await OrderProductRepository.getByOrderCode(orderCode);
-
-        return orderProducts;
-    }
+    return orderProducts;
+  }
 }
 
 export default new FindOrderProductsService();
