@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import validateCPF from '../../utils/validateCPF';
 
-const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+const phoneRegex = /^\d{2}\d{9}$/;
 
 export const CreateUserSchema = yup.object({
   name: yup.string().required('Nome é obrigatório'),
