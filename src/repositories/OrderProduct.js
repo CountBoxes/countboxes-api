@@ -90,6 +90,12 @@ class OrderProductRepository {
 
     return updatedOrderProduct;
   }
+
+  async delete(orderProductCode) {
+    return await prisma.orderProduct.delete({
+      where: { orderProductCode: parseInt(orderProductCode) },
+    });
+  }
 }
 
 export default new OrderProductRepository();

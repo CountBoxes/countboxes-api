@@ -13,6 +13,12 @@ class ClientController {
 
       return res.status(201).send(client);
     } catch (error) {
+      if (error.message === 'Esse CNPJ já esta cadastrado.') {
+        return res.status(400).json({
+          error: true,
+          description: error.message,
+        });
+      }
       return res
         .status(error.status || 500)
         .json({ error: true, description: error.message });

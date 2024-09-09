@@ -13,4 +13,6 @@ orderProductRoutes.get('/:orderCode', OrderProductController.get);
 
 orderProductRoutes.put('/:orderProductCode', OrderProductController.update);
 
+orderProductRoutes.delete('/:orderProductCode', OrderProductController.delete)
+
 export default orderProductRoutes;

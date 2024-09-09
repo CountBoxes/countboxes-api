@@ -36,6 +36,7 @@ class VehicleRepository {
             data: {
                 model: data.model,
                 type: data.type,
+                active: data.active
             }
         });
         return updatedVehicle;
