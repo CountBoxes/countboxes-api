@@ -2,10 +2,8 @@ import { prisma } from '../../prisma/client';
 
 class ProductRepository {
   async create(data) {
-
-
     const product = await prisma.product.create({
-      data
+      data,
     });
     return product;
   }
@@ -25,7 +23,7 @@ class ProductRepository {
 
   async update(id, data) {
     const existingProduct = await prisma.product.findUnique({
-      where: { productCode: parseInt(id) }
+      where: { productCode: id },
     });
 
     if (!existingProduct) {
@@ -44,7 +42,7 @@ class ProductRepository {
     }
 
     const updatedProduct = await prisma.product.update({
-      where: { productCode: parseInt(id) },
+      where: { productCode: id },
       data: productData,
     });
 
@@ -53,7 +51,7 @@ class ProductRepository {
 
   async getById(id) {
     const product = await prisma.product.findUnique({
-      where: { productCode: parseInt(id) },
+      where: { productCode: id },
     });
     return product;
   }

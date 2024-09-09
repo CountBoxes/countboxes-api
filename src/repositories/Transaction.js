@@ -1,7 +1,11 @@
 import { prisma } from '../../prisma/client';
 
 class TransactionRepository {
-  async countTransactions({ orderCode, orderProductCode, transactionCategory }) {
+  async countTransactions({
+    orderCode,
+    orderProductCode,
+    transactionCategory,
+  }) {
     return prisma.transaction.count({
       where: {
         orderCode: orderCode,
@@ -10,11 +14,14 @@ class TransactionRepository {
       },
     });
   }
-  async createTransaction({ orderCode, orderProductCode, userCode, loadCode, transactionCategory, productCode }) {
-    if (!productCode) {
-      throw new Error('productCode não pode ser undefined ou null');
-    }
-
+  async createTransaction({
+    orderCode,
+    orderProductCode,
+    userCode,
+    loadCode,
+    transactionCategory,
+    productCode,
+  }) {
     return prisma.transaction.create({
       data: {
         orderCode,
@@ -41,7 +48,5 @@ class TransactionRepository {
     });
   }
 }
-
-
 
 export default new TransactionRepository();

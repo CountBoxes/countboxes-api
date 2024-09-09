@@ -1,3 +1,4 @@
+import { OrderStatus } from '@prisma/client';
 import { prisma } from '../../prisma/client';
 
 class OrderRepository {
@@ -9,7 +10,11 @@ class OrderRepository {
   }
 
   async get() {
-    const orders = await prisma.order.findMany({});
+    const orders = await prisma.order.findMany({
+      orderBy: {
+        status: 'asc',
+      },
+    });
 
     return orders;
   }
@@ -17,13 +22,34 @@ class OrderRepository {
   async getById(id) {
     const order = await prisma.order.findUnique({
       where: { orderCode: parseInt(id) },
+      include: {
+        client: true,
+        load: true,
+        OrderProduct: {
+          include: {
+            product: true,
+            Transaction: true,
+          },
+        },
+      },
     });
+
     return order;
+  }
+
+  async findPendings() {
+    const orders = await prisma.order.findMany({
+      where: {
+        status: OrderStatus.ABERTO,
+      },
+    });
+
+    return orders;
   }
 
   async update(id, data) {
     const existingOrder = await prisma.order.findUnique({
-      where: { orderCode: parseInt(id) }
+      where: { orderCode: parseInt(id) },
     });
 
     if (!existingOrder) {
@@ -33,7 +59,7 @@ class OrderRepository {
     const orderData = {
       shipping: data.shipping,
       address: data.address,
-      status: data.status
+      status: data.status,
     };
 
     // if (data.productCode !== existingProduct.productCode) {
@@ -47,10 +73,6 @@ class OrderRepository {
 
     return updatedOrder;
   }
-
-
 }
-
-
 
 export default new OrderRepository();

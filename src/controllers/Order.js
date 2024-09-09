@@ -3,7 +3,8 @@ import { CreateOrderSchema } from '../validations/Order/CreateOrder';
 import { UpdateOrderSchema } from '../validations/Order/UpdateOrder';
 import FindOrdersService from '../services/Order/FindOrdersService';
 import UpdateOrderService from '../services/Order/UpdateOrderService';
-import FindOrderByIdService from '../services/Order/FindOrderByIdService';
+import FindPendingOrdersService from '../services/Order/FindPendingOrdersService';
+import FindByIdOrderService from '../services/Order/FindByIdOrderService';
 
 class OrderController {
   async create(req, res) {
@@ -26,12 +27,24 @@ class OrderController {
     return res.status(200).send(orders);
   }
 
-  async getById(req, res){
+  async findById(req, res) {
     const { id } = req.params;
 
-    const orders = await FindOrderByIdService.execute(id);
+    const orders = await FindByIdOrderService.execute(id);
 
     return res.status(200).send(orders);
+  }
+
+  async open(req, res) {
+    try {
+      const data = await FindPendingOrdersService.execute();
+
+      return res.status(200).json(data);
+    } catch (error) {
+      return res
+        .status(error.status || 500)
+        .json({ error: true, description: error.message });
+    }
   }
 
   async update(req, res) {
